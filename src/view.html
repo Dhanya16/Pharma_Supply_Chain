@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard - Pharmacy Blockchain</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/admin-styles.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Admin Dashboard</h1>
+        </header>
+        <nav>
+            <ul>
+                <li><a href="#new-orders" class="tab-link active" data-tab="new-orders">New Orders</a></li>
+                <li><a href="#order-history" class="tab-link" data-tab="order-history">Order History</a></li>
+                <li><a href="#product-details" class="tab-link" data-tab="product-details">Product Details</a></li>
+                <li><a href="#out-of-stock" class="tab-link" data-tab="out-of-stock">Out of Stock</a></li>
+                <li><a href="#product-add" class="tab-link" data-tab="product-add">Add Products</a></li>
+            </ul>
+        </nav>
+        <main>
+            <section id="new-orders" class="tab-content active">
+                <h2>New Orders</h2>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Order ID</th>
+                            <th>Customer</th>
+                            <th>Items</th>
+                            <th>Total</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>1001</td>
+                            <td>John Doe</td>
+                            <td>Aspirin, Bandages</td>
+                            <td>$25.99</td>
+                            <td><button class="btn">Process</button></td>
+                        </tr>
+                        <tr>
+                            <td>1002</td>
+                            <td>Mary Johnson</td>
+                            <td>Antibiotics, Thermometer</td>
+                            <td>$48.75</td>
+                            <td><button class="btn">Process</button></td>
+                        </tr>
+                        <tr>
+                            <td>1003</td>
+                            <td>Robert Brown</td>
+                            <td>Cough Syrup, Vitamin C</td>
+                            <td>$17.49</td>
+                            <td><button class="btn">Process</button></td>
+                        </tr>
+                        <tr>
+                            <td>1004</td>
+                            <td>Linda Williams</td>
+                            <td>Pain Relief Gel, Cold Medicine</td>
+                            <td>$29.85</td>
+                            <td><button class="btn">Process</button></td>
+                        </tr>
+                        <tr>
+                            <td>1005</td>
+                            <td>James Taylor</td>
+                            <td>Blood Pressure Monitor, Insulin</td>
+                            <td>$92.50</td>
+                            <td><button class="btn">Process</button></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </section>
+            <section id="order-history" class="tab-content">
+                <h2>Order History</h2>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Order ID</th>
+                            <th>Customer</th>
+                            <th>Items</th>
+                            <th>Total</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>1000</td>
+                            <td>Jane Smith</td>
+                            <td>Ibuprofen, Cough Syrup</td>
+                            <td>$32.50</td>
+                            <td>Delivered</td>
+                        </tr>
+                        <tr>
+                            <td>999</td>
+                            <td>Michael Davis</td>
+                            <td>Hand Sanitizer, Masks</td>
+                            <td>$15.00</td>
+                            <td>Delivered</td>
+                        </tr>
+                        <tr>
+                            <td>998</td>
+                            <td>Patricia Garcia</td>
+                            <td>Antacids, Allergy Medicine</td>
+                            <td>$21.40</td>
+                            <td>Delivered</td>
+                        </tr>
+                        <tr>
+                            <td>997</td>
+                            <td>Christopher Martinez</td>
+                            <td>Diabetes Medicine, First Aid Kit</td>
+                            <td>$45.90</td>
+                            <td>Delivered</td>
+                        </tr>
+                        <tr>
+                            <td>996</td>
+                            <td>Amanda Rodriguez</td>
+                            <td>Calcium Supplements, Herbal Tea</td>
+                            <td>$12.80</td>
+                            <td>Delivered</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </section>
+            <section id="product-details" class="tab-content">
+                <h2>Product Details</h2>
+                <p>Total Products: 50</p>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Product ID</th>
+                            <th>Product Name</th>
+                            <th>Category</th>
+                            <th>Stock</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>P001</td>
+                            <td>Aspirin</td>
+                            <td>Pain Relief</td>
+                            <td>20</td>
+                        </tr>
+                        <tr>
+                            <td>P002</td>
+                            <td>Ibuprofen</td>
+                            <td>Pain Relief</td>
+                            <td>15</td>
+                        </tr>
+                        <tr>
+                            <td>P003</td>
+                            <td>Bandages</td>
+                            <td>First Aid</td>
+                            <td>50</td>
+                        </tr>
+                        <tr>
+                            <td>P004</td>
+                            <td>Antibiotics</td>
+                            <td>Medication</td>
+                            <td>30</td>
+                        </tr>
+                        <tr>
+                            <td>P005</td>
+                            <td>Vitamin C</td>
+                            <td>Supplements</td>
+                            <td>25</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </section>
+            <section id="out-of-stock" class="tab-content">
+                <h2>Out of Stock</h2>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Product ID</th>
+                            <th>Product Name</th>
+                            <th>Category</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>P006</td>
+                            <td>Cough Syrup</td>
+                            <td>Medication</td>
+                        </tr>
+                        <tr>
+                            <td>P007</td>
+                            <td>Cold Medicine</td>
+                            <td>Medication</td>
+                        </tr>
+                        <tr>
+                            <td>P008</td>
+                            <td>Pain Relief Gel</td>
+                            <td>Pain Relief</td>
+                        </tr>
+                        <tr>
+                            <td>P009</td>
+                            <td>Herbal Tea</td>
+                            <td>Supplements</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </section>
+            <section id="product-add" class="tab-content">
+                
+                
+            </section>
+        </main>
+    </div>
+    <script>
+        document.querySelectorAll('.tab-link').forEach(link => {
+            link.addEventListener('click', function(event) {
+                event.preventDefault();
+                document.querySelectorAll('.tab-link').forEach(el => el.classList.remove('active'));
+                document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
+
+                const tab = this.getAttribute('data-tab');
+                document.getElementById(tab).classList.add('active');
+                this.classList.add('active');
+            });
+        });
+    </script>
+</body>
+</html>

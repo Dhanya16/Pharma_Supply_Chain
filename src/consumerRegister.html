@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Registration Page</title>
+  <link rel="stylesheet" href="css/userRegister.css">
+  <script src="https://cdn.jsdelivr.net/npm/web3@latest/dist/web3.min.js"></script>
+  <script src="js/register.js" defer></script>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+</head>
+<body>
+  <div class="container">
+    <div class="registration-box">
+      <h2>Registration Page</h2>
+      <form>
+        <div class="input-group">
+          <i class="fas fa-user"></i>
+          <input type="text" id="name" required>
+          <label for="name">Enter full name</label>
+        </div>
+        <div class="input-group">
+          <i class="fas fa-user-tag"></i>
+          <input type="text" id="username" required>
+          <label for="username">Enter username</label>
+        </div>
+        <div class="input-group">
+          <i class="fas fa-envelope"></i>
+          <input type="email" id="email" required>
+          <label for="email">Enter email</label>
+        </div>
+        <div class="input-group">
+          <i class="fas fa-lock"></i>
+          <input type="password" id="password" required>
+          <label for="password">Enter password</label>
+          <i class="fas fa-eye-slash" id="togglePassword"></i>
+        </div>
+        <div class="input-group">
+          <i class="fas fa-lock"></i>
+          <input type="password" id="confirm-password" required>
+          <label for="confirm-password">Enter password again</label>
+          <i class="fas fa-eye-slash" id="toggleConfirmPassword"></i>
+        </div>
+        <div class="input-group">
+          <i class="fas fa-mobile"></i>
+          <input type="number" id="mobile" required>
+          <label for="mobile">Enter the mobile number</label>
+        </div>
+        <div class="input-group">
+          <i class="fas fa-home"></i>
+          <input type="text" id="address" required>
+          <label for="address">Enter the billing address</label>
+        </div>
+        <button class="btn" type="submit">Register</button>
+      </form>
+    </div>
+  </div>
+  <script>
+    document.getElementById('togglePassword').addEventListener('click', function (e) {
+      const passwordInput = document.getElementById('password');
+      const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
+      passwordInput.setAttribute('type', type);
+      this.classList.toggle('fa-eye');
+      this.classList.toggle('fa-eye-slash');
+    });
+
+    document.getElementById('toggleConfirmPassword').addEventListener('click', function (e) {
+      const confirmPasswordInput = document.getElementById('confirm-password');
+      const type = confirmPasswordInput.getAttribute('type') === 'password' ? 'text' : 'password';
+      confirmPasswordInput.setAttribute('type', type);
+      this.classList.toggle('fa-eye');
+      this.classList.toggle('fa-eye-slash');
+    });
+
+    document.getElementById('password').addEventListener('input', function (e) {
+      const togglePasswordIcon = document.getElementById('togglePassword');
+      if (this.value.length > 0) {
+        togglePasswordIcon.style.display = 'block';
+      } else {
+        togglePasswordIcon.style.display = 'none';
+      }
+    });
+
+    document.getElementById('confirm-password').addEventListener('input', function (e) {
+      const toggleConfirmPasswordIcon = document.getElementById('toggleConfirmPassword');
+      if (this.value.length > 0) {
+        toggleConfirmPasswordIcon.style.display = 'block';
+      } else {
+        toggleConfirmPasswordIcon.style.display = 'none';
+      }
+    });
+
+    // Ensure the eye icons are initially hidden
+    document.getElementById('togglePassword').style.display = 'none';
+    document.getElementById('toggleConfirmPassword').style.display = 'none';
+  </script>
+</body>
+</html>

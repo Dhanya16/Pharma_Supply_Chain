@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PharmaTrace</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.css"/>
+<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick-theme.min.css"/>
+
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+            margin: 0;
+            padding: 0;
+            background:linear-gradient(to right,rgb(206,224,244), rgb(132,161,196));
+        }
+        .header {
+            background: linear-gradient(to right, rgb(206, 224, 244,0.8), rgb(167, 193, 225,0.8));
+            color: black;
+            backdrop-filter: blur(5px); /* Optional: Adds a blur effect */
+            -webkit-backdrop-filter: blur(5px);
+            position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 1000;
+        }
+        .header .navbar-brand, .header .nav-link {
+            color: black !important;
+        }
+        .header .navbar-brand img {
+            height: 40px;
+            width: 40px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-right: 10px;
+        }
+        .welcome-section {
+            position: relative;
+            background-size: cover;
+            background-color: #f0f0f0;
+            padding: 80px 20px;
+            text-align: center;
+            overflow: hidden;
+        }
+        .overlay {
+            background-size: cover;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(96, 123, 155, 0.7); /* Semi-transparent overlay */
+  }
+        .footer {
+            background-color: #343a40;
+            color: white;
+            text-align: center;
+            padding: 20px 0;
+            bottom: 0;
+            width: 100%;
+        }
+        .hr-container {
+    overflow: hidden; /* Hide overflow to clip animations */
+}
+
+.hr-small {
+    width: 0; /* Start with width 0 */
+    border: none;
+    height: 5px;
+    background-color: #C4FFFF;
+    animation: slideIn1 1s forwards; 
+}
+
+.hr-medium {
+    width: 0; /* Start with width 0 */
+    border: none;
+    height: 5px;
+    background-color: #C4FFFF;
+    animation: slideIn2 1s forwards;  /* Delay for medium line */
+}
+
+.hr-large {
+    width: 0; /* Start with width 0 */
+    border: none;
+    height: 5px;
+    background-color: #C4FFFF;
+    animation: slideIn3 1s forwards; 
+}
+
+@keyframes slideIn1 {
+    0% {
+        width: 0; /* Start with width 0 */
+    }
+    100% {
+        width: 25%; /* End with full width */
+    }
+}
+@keyframes slideIn2 {
+    0% {
+        width: 0; /* Start with width 0 */
+    }
+    100% {
+        width: 60%; /* End with full width */
+    }
+}
+@keyframes slideIn3 {
+    0% {
+        width: 0; /* Start with width 0 */
+    }
+    100% {
+        width: 100%; /* End with full width */
+    }
+}
+.review-section {
+    padding: 80px 20px;
+    text-align: center;
+}
+
+.section-title {
+    margin-bottom: 50px;
+    color: #333;
+}
+.box-section {
+    padding: 40px 0;
+}
+
+.box {
+    position: relative;
+    background-color: #ccc;
+    height: 200px;
+    margin: 10px 0;
+    border-radius: 10px;
+    overflow: hidden;/* Add transition for smooth animation */ /* Initially hide the boxes */
+}
+.overlay-text {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    background:linear-gradient(to right,rgb(167,193,225,0.7),rgba(96, 123, 155, 0.7)) ;/* Semi-transparent overlay */
+    color: white;
+    text-align: center;
+    padding: 10px 0;
+}
+#fade-in-section {
+    opacity: 0;
+    transition: opacity 1s ease;
+  }
+.testimonial-box {
+    border: 2px solid #42251D;
+    border-radius: 10px; /* Rounded corners */
+    padding: 20px; /* Padding inside the box */
+    margin: 10px; /* Margin between testimonial boxes */
+    background:linear-gradient(to right,rgb(167,193,225),rgba(96, 123, 155, 0.7)) ;/* Semi-transparent overlay */
+    box-shadow: 0px 4px 6px rgb(206,224,244,0.2);
+    text-align: center; /* Center-align content */
+}
+
+.testimonial-box p {
+    font-size: 16px; /* Testimonial text font size */
+    margin-bottom: 10px; /* Spacing between text and author */
+}
+
+.testimonial-box cite {
+    font-style: italic; /* Italicize author's name */
+    font-size: 14px; /* Author's name font size */
+}
+
+    </style>
+</head>
+<body>
+
+<!-- Header -->
+<nav class="navbar navbar-expand-lg navbar-light header">
+    <div class="container">
+        <a class="navbar-brand" href="#"">
+            <img src="images/logo.png" alt="Logo">
+            PharmaTrace
+        </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNavDropdown">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Reviews</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">About Us</a>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        More
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                        <a class="dropdown-item" href="#">Contact Us</a>
+                        <a class="dropdown-item" href="#">Help</a>
+                    </div>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">
+                        <i class="fas fa-user"></i>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<!-- Welcome Section -->
+<div class="welcome-section" style="background-image: url('images/bg.png'); background-size: cover; background-position: center center;height: 730px;">
+    <div class="overlay"></div>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6">
+                <h1 style="font-size:90px;color: rgb(232,240,250);margin-right: 1000px;  display: inline-block; margin-top: 200px;">PharmaTrace</h1>
+                <p style="margin-bottom: 20px;margin-right:15px;color:rgb(232,240,250);display: inline-block;">Ensuring the integrity of pharmaceuticals from manufacturer to consumer.</p>
+                <input type="text" class="form-control" placeholder="Search for products...">
+                <div class="hr-container" style="margin-top: 10px;">
+                    <hr class="hr-line hr-small" style="border: 0; border-top: 5px solid #C4FFFF; width: 20%; margin-left: 0;border-radius: 15%;">
+                    <hr class="hr-line hr-medium" style="border: 0; border-top: 5px solid #C4FFFF; width: 50%; margin-left: 0;border-radius: 15%;">
+                    <hr class="hr-line hr-large" style="border: 0; border-top: 5px solid #C4FFFF; width: 100%; margin-left: 0;border-radius: 15%;">
+                </div>
+            </div>
+        </div>
+    </div> 
+</div>
+
+
+<!-- Box Section -->
+<div class="box-section container" id="fade-in-section">
+    <h1 class="mt-4" style="color:black;font-size:36px;border:black;">Top drugs</h1>
+    <div class="row">
+        <div class="col-md-3">
+            <div class="box">
+                <img src="images/drug1.jpg" alt="Drug 1">
+                <div class="overlay-text">Drug 1</div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="box">
+                <img src="images/drug2.jpg" alt="Drug 2">
+                <div class="overlay-text">Drug 2</div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="box">
+                <img src="images/drug3.jpg" alt="Drug 3">
+                <div class="overlay-text">Drug 3</div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="box">
+                <img src="images/drug4.jpg" alt="Drug 4">
+                <div class="overlay-text">Drug 4</div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="box">
+                <img src="images/drug5.jpg" alt="Drug 5">
+                <div class="overlay-text">Drug 5</div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="box">
+                <img src="images/drug6.jpg" alt="Drug 6">
+                <div class="overlay-text">Drug 6</div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="box">
+                <img src="images/drug7.jpg" alt="Drug 7">
+                <div class="overlay-text">Drug 7</div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="box">
+                <img src="images/drug8.jpg" alt="Drug 8">
+                <div class="overlay-text">Drug 8</div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="container">
+    <h1 class="mt-4" style="color:black;font-size:36px;">Testimonials</h1>
+    <div id="testimonialCarousel" class="carousel slide" data-ride="carousel">
+        <ol class="carousel-indicators">
+            <li data-target="#testimonialCarousel" data-slide-to="0" class="active"></li>
+            <li data-target="#testimonialCarousel" data-slide-to="1"></li>
+            <li data-target="#testimonialCarousel" data-slide-to="2"></li>
+        </ol>
+        <div class="carousel-inner">
+            <div class="carousel-item active">
+                <div class="row">
+                    <div class="col-sm-6">
+                        <div class="testimonial-box" style="height:200px;">
+                            <p>I've struggled with chronic pain for years and PainAway Plus has been a game changer. Within an hour of taking it, my pain levels decrease significantly. It doesn't make me drowsy, and I can go about my day normally. Highly recommended!</p>
+                            <p>&#9733; &#9733; &#9733; &#9733; &#9733; </p>
+                            <cite>Kavita Sharma</cite>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="testimonial-box" style="height:200px;">
+                            <p>Allerclear 24HR has been very effective in managing my seasonal allergies. I take it once a day and my symptoms are kept at bay for the most part. The only downside is that it sometimes makes me a bit sleepy, but it's worth it for the relief I get. </p>
+                            <p>&#9733; &#9733; &#9733; &#9733; &#9733; </p>
+                            <cite>Shreya Jain</cite>
+                        </div>
+                    </div>
+                </div>     
+            </div>
+            <div class="carousel-item">
+                <div class="row">
+                    <div class="col-sm-6">
+                        <div class="testimonial-box" style="height:200px;">
+                            <p>Hypertensol has done wonders for my blood pressure. After a month of taking it, my readings have been consistently in the normal range. The only issue I've faced is mild dizziness occasionally, but overall it's been a great help.</p>
+                            <p>&#9733; &#9733; &#9733; &#9733; &#9733; </p>
+                            <cite>Jane Markson</cite>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="testimonial-box" style="height:200px;">
+                            <p>I had a severe throat infection and was prescribed Amoxicillin. Within three days, the infection started to clear up and I felt much better. I didn't experience any side effects. It's a very effective antibiotic!</p>
+                            <p>&#9733; &#9733; &#9733; &#9733; &#9733;</p>
+                            <cite>Rishi Patel</cite>
+                        </div>
+                    </div>
+                </div>      
+            </div>
+            <div class="carousel-item"> 
+                <div class="row">
+                    <div class="col-sm-6">
+                        <div class="testimonial-box" style="height:200px;">
+                            <p>GlucoManage has been effective in controlling my blood sugar levels. My A1C has improved since I started taking it. The only minor issue is that I sometimes experience mild stomach upset, but it's manageable.</p>
+                            <p>&#9733; &#9733; &#9733; &#9733; &#9733; </p>
+                            <cite>Arjun Singh</cite>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="testimonial-box" style="height:200px;">
+                            <p>Sertraline has greatly improved my mood and overall outlook on life. I've been taking it for six months and feel much more balanced and happy. It took a couple of weeks to start noticing the effects, but it's been well worth it.</p>
+                            <p>&#9733; &#9733; &#9733; &#9733; &#9733; </p>
+                            <cite>Aryan Kumar</cite>
+                        </div>
+                    </div>
+                </div> 
+            </div>
+        </div>
+        <a class="carousel-control-prev" href="#testimonialCarousel" role="button" data-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="sr-only">Previous</span>
+        </a>
+        <a class="carousel-control-next" href="#testimonialCarousel" role="button" data-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="sr-only">Next</span>
+        </a>
+    </div>
+</div>
+<!--Testimonials ends-->
+
+<!-- Footer -->
+<div class="footer">
+    <p>&copy; 2024 PharmaTrace. All rights reserved.</p>
+</div>
+
+
+
+<!-- Add this script at the end of your body or in a separate JavaScript file -->
+ <script>
+function handleIntersection(entries, observer) {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) {
+        entry.target.style.opacity = "1";
+      } else {
+        entry.target.style.opacity = "0";
+      }
+    });
+  }
+
+  // Create an Intersection Observer
+  const options = {
+    root: null,
+    rootMargin: "0px",
+    threshold: 0.5, // Adjust this threshold as needed
+  };
+
+  const observer = new IntersectionObserver(handleIntersection, options);
+
+  // Target the element you want to fade in/out
+  const fadeInSection = document.getElementById("fade-in-section");
+
+  // Start observing when it comes into the viewport
+  observer.observe(fadeInSection);
+</script>
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.js"></script>
+
+
+</body>
+</html>

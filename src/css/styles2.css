@@ -1,0 +1,124 @@
+body {
+    font-family: 'Poppins', sans-serif;
+    background: linear-gradient(135deg, #E8F0FA 0%, #A7C1E1 100%);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+}
+
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    animation: fadeIn 1s ease-in-out;
+}
+
+.registration-box {
+    background: rgba(255, 255, 255, 0.97);
+    padding: 30px;
+    border-radius: 20px;
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+    text-align: center;
+    width: 400px;; /* Adjusted width */
+}
+
+.registration-box h2 {
+    margin-bottom: 20px;
+    font-size: 28px;
+    color: #607B9B;
+    font-weight: 600;
+}
+
+.input-group {
+    position: relative;
+    margin-bottom: 20px;
+}
+
+.input-group i {
+    position: absolute;
+    top: 50%;
+    left: 10px;
+    transform: translateY(-50%);
+    color: #84A1C4;
+    transition: color 0.3s ease;
+}
+
+.input-group #togglePassword,
+.input-group #toggleConfirmPassword {
+    right: 10px;
+    left: unset;
+    cursor: pointer;
+    display: none; /* Initially hidden */
+    color: #84A1C4;
+    transition: color 0.3s ease;
+}
+
+.input-group input {
+    width: calc(100% - 40px); /* Adjusting the width to fit within the container */
+    padding: 15px 15px 15px 40px;
+    border: none;
+    border-bottom: 2px solid #CEE0F4;
+    background-color: transparent;
+    outline: none;
+    font-size: 16px;
+    transition: 0.3s;
+}
+
+.input-group label {
+    position: absolute;
+    top: 15px;
+    left: 40px;
+    font-size: 14px; /* Adjusted font size */
+    color: #84A1C4;
+    pointer-events: none;
+    transition: 0.3s;
+}
+
+.input-group input:focus ~ label,
+.input-group input:valid ~ label {
+    top: -20px;
+    font-size: 12px; /* Adjusted font size */
+    color: #607B9B;
+}
+
+.input-group input:focus,
+.input-group input:valid {
+    border-bottom-color: #607B9B;
+}
+
+.btn {
+    width: 100%;
+    padding: 12px; /* Adjusted padding */
+    border: none;
+    border-radius: 50px;
+    background: linear-gradient(135deg, #84A1C4 0%, #607B9B 100%);
+    color: #fff;
+    font-size: 16px; /* Adjusted font size */
+    font-weight: 600;
+    cursor: pointer;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+}
+.input-group input[type="number"]::-webkit-outer-spin-button,
+.input-group input[type="number"]::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}

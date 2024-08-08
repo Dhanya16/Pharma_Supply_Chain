@@ -1,0 +1,138 @@
+body {
+    font-family: 'Poppins', sans-serif;
+    background: linear-gradient(135deg, #E8F0FA 0%, #A7C1E1 100%);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+}
+
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    animation: fadeIn 1s ease-in-out;
+}
+
+.login-box {
+    background: rgba(255, 255, 255, 0.97);
+    padding: 40px;
+    border-radius: 20px;
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+    text-align: center;
+    width: 400px;
+    overflow: hidden;
+}
+
+.login-box h2 {
+    margin-bottom: 30px;
+    font-size: 32px;
+    color: #607B9B;
+    font-weight: 600;
+}
+
+.input-group {
+    position: relative;
+    margin-bottom: 30px;
+    width: 100%;
+}
+
+.input-group i {
+    position: absolute;
+    top: 50%;
+    left: 10px;
+    transform: translateY(-50%);
+    color: #84A1C4;
+    transition: color 0.3s ease;
+}
+
+.input-group #togglePassword {
+    right: 10px;
+    left: unset;
+    cursor: pointer;
+    display: none; /* Initially hidden */
+    color: #84A1C4;
+    transition: color 0.3s ease;
+}
+
+.input-group input {
+    width: calc(100% - 40px); /* Adjusting the width to fit within the container */
+    padding: 15px 15px 15px 40px;
+    border: none;
+    border-bottom: 2px solid #CEE0F4;
+    background-color: transparent;
+    outline: none;
+    font-size: 16px;
+    transition: 0.3s;
+}
+
+.input-group input:focus ~ i,
+.input-group input:valid ~ i {
+    color: #607B9B;
+}
+
+.input-group label {
+    position: absolute;
+    top: 15px;
+    left: 40px;
+    font-size: 16px;
+    color: #84A1C4;
+    pointer-events: none;
+    transition: top 0.3s ease, font-size 0.3s ease, color 0.3s ease;
+}
+
+.input-group input:focus,
+.input-group input:valid {
+    border-bottom-color: #607B9B;
+}
+
+.input-group input:focus ~ label,
+.input-group input:valid ~ label {
+    top: -20px;
+    font-size: 14px;
+    color: #607B9B;
+}
+
+.btn {
+    width: 100%;
+    padding: 15px;
+    border: none;
+    border-radius: 50px;
+    background: linear-gradient(135deg, #607B9B 0%, #A7C1E1 100%);
+    color: #fff;
+    font-size: 18px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+}
+
+#registerPrompt {
+    margin-top: 20px;
+    font-size: 14px;
+}
+
+#registerPrompt a {
+    color: #607B9B;
+    text-decoration: none;
+}
+
+#registerPrompt a:hover {
+    text-decoration: underline;
+}
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
