@@ -1,0 +1,190 @@
+
+*{
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    overflow: hidden;
+}
+
+.main{
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    padding-top: 30px;;
+    align-items: center;
+    background: linear-gradient(100deg, #e8f0fa,#a7c1e1);
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    flex-direction: column;
+    position: relative;
+    z-index: 0;
+}
+.head{
+    margin-top: 50px;
+    text-align: center;
+}
+.head_1{
+    font-size: 30px;
+    font-weight: 800;
+    color: #415369;
+}
+ul{
+    display: flex;
+    margin-top: 50px;
+}
+ul li{
+    list-style: none;
+    display: flex;
+    width: 125px;
+    flex-direction: column;
+    align-items: center;
+}
+ul li .icon{
+    font-size: 35px;
+    color: #607b9b;
+    margin: 0 60px;
+}
+ul li .text{
+    font-size: 13px;
+    text-align: center;
+    font-weight: 750;
+    color: #607b9b;
+}
+.card_details {
+    width: 600px;
+    /* height: 140px;  */
+    /* width:auto; */
+    height:auto;
+    background-color: #e8f0fa;
+    padding: 1.5rem 2rem;
+    box-shadow: 0 8px 24px hsla(0, 0%, 0%, .15);
+    border-radius: 16px;
+    position: absolute;
+    bottom: 110px;
+    left: 50%;
+    transform: translateX(-50%);
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+    text-align: left;
+    font-size: 15px;
+    font-weight: 800;
+    color: #607b9b;
+}
+.card_details  span {
+    font-size: 15px;
+    font-weight: 500;
+    color: #607b9b;
+}
+#card:hover .card_details {
+    opacity: 1;
+    visibility: visible;
+}
+
+/* Progress Div Css  */
+
+ul li .progress{
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background-color: rgba(68, 68, 68, 0.781);
+    margin: 14px 0;
+    display: grid;
+    place-items: center;
+    color: #fff;
+    position: relative;
+    cursor: pointer;
+    
+}
+.progress::after{
+    content: " ";
+    position: absolute;
+    width: 94px;
+    height: 5px;
+    background-color: rgba(197, 190, 190, 0.781);
+    right: 30px;
+    
+}
+.one::after{
+    width: 0;
+    height: 0;
+}
+ul li .progress .uil{
+    display: none;
+}
+ul li .progress p{
+    font-size: 10px;
+}
+
+/* Active Css  */
+
+ul li .active{
+    background-color: #607b9b;
+    display: grid;
+    place-items: center;
+}
+li .active::after{
+    background-color: #607b9b;
+}
+ul li .active p{
+    display: none;
+}
+ul li .active .uil{
+    font-size: 20px;
+    display: flex;
+}
+
+/* Responsive Css  */
+
+@media (max-width: 1000px) {
+    body {
+        overflow: auto;
+    }
+    .head{
+        margin-top:20px;
+    }
+    ul{
+        flex-direction: column;
+        margin-left: -130px;
+    }
+    ul li{
+        flex-direction: row;
+        width: 100%; 
+        align-items: center;
+       
+    }
+    ul li .progress{
+        margin: 0 30px;
+    }
+    .progress::after{
+        width: 5px;
+        height: 45px;
+        bottom: 10px;
+        left: 50%;
+        transform: translateX(-50%);
+        z-index: -1;
+    }
+    .one::after{
+        height: 0;
+    }
+    ul li .icon{
+        margin: 0 15px;
+    }
+}
+
+@media (max-width:600px) {
+    .head .head_1{
+        font-size: 24px;
+    }
+}
+
+@media (max-width: 1000px) {
+    .card_details  {
+        width: auto; 
+        height: auto;
+        z-index:2;
+        margin-right: -600px;
+        background-color:#e8f0fa;
+    }
+}
