@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Order Status</title>
+    <link rel="stylesheet" href="css/adminProgress.css">
+
+
+    <!-- UniIcon CDN Link  -->
+    <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css">
+</head>
+
+<body>
+    <div class="main">
+
+        <div class="head">
+            <p class="head_1">Order Progress Status</p>
+        </div>
+        <ul>
+        
+            <li id="card">
+                <i class="icon uil uil-flask"></i>
+                <div class="progress one">
+                    <p>1</p>
+                    <i class="uil uil-check"></i>
+                </div>
+                <p class="text">Produced Drug</p>
+                <div class="card_details">
+                    <p>Batch Number: <span></span></p>
+                    <p>Drug Name: <span></span></p>
+                    <p>Category: <span></span></p>
+                    <p>Manufacturer: <span></span></p>
+                    <p>Manufacturing Date: <span></span></p>
+                    <p>Expiry Date: <span></span></p>
+                    <p>Quantity: <span></span></p>
+                    <p>Storage condition: <span></span></p>
+                </div>
+            </li>
+            <li id="card">
+                <i class="icon uil uil-file-check-alt"></i>
+                <div class="progress two">
+                    <p>2</p>
+                    <i class="uil uil-check"></i>
+                </div>
+                <p class="text">Initial Quality Control</p>
+                <div class="card_details">
+                    <p>Test ID: <span>QC-3456</span></p>
+                    <p>Test Date: <span>2024-07-09</span></p>
+                    <p>Test Time: <span>9:00 AM</span></p>
+                    <p>Tester Name: <span>Dr. John Doe</span></p>
+                    <p>Results: <span>Passed</span></p>
+                </div>
+            </li>
+            <li id="card">
+                <i class="icon uil uil-box"></i>
+                <div class="progress three">
+                    <p>3</p>
+                    <i class="uil uil-check"></i>
+                </div>
+                <p class="text">Packaged Drugs</p>
+                <div class="card_details">
+                    <p>Package Batch Number: <span>PK-2345</span></p>
+                    <p>Package Date: <span>2024-07-08</span></p>
+                    <p>Package Time: <span>3:00 PM</span></p>
+                    <p>Quantity Packaged: <span>9500 units</span></p>
+                    <p>Packaging Facility: <span>PackTech Ltd.</span></p>
+                </div>
+            </li>
+            <li id="card">
+                <i class="icon uil uil-microscope"></i>
+                <div class="progress four">
+                    <p>4</p>
+                    <i class="uil uil-check"></i>
+                </div>
+                <p class="text">Lab Testing</p>
+                <div class="card_details">
+                    <p>Lab Test ID: <span>LT-5678</span></p>
+                    <p>Test Date: <span>2024-07-07</span></p>
+                    <p>Test Time: <span>4:00 PM</span></p>
+                    <p>Lab Name: <span>TestLab Inc.</span></p>
+                    <p>Tester Name: <span>Dr. Jane Smith</span></p>
+                    <p>Results: <span>Passed</span></p>
+                </div>
+            </li>
+            <li id="card">
+                <i class="icon uil uil-users-alt"></i>
+                <div class="progress five">
+                    <p>5</p>
+                    <i class="uil uil-check"></i>
+                </div>
+                <p class="text">Sent to Distributors</p>
+                <div class="card_details">
+                    <p>Distribution Batch Number: <span>DB-3456</span></p>
+                    <p>Distributor Name: <span>Distributor Co.</span></p>
+                    <p>Dispatch Date: <span>2024-07-06</span></p>
+                    <p>Dispatch Time: <span>1:00 PM</span></p>
+                    <p>Quantity Dispatched: <span>9000 units</span></p>
+                    <p>Destination: <span>Main Warehouse</span></p>
+                    <p>Mode Of Transport: <span>Truck</span></p>
+                </div>
+            </li>
+            <li id="card">
+                <i class="icon uil uil-truck"></i>
+                <div class="progress six">
+                    <p>6</p>
+                    <i class="uil uil-check"></i>
+                </div>
+                <p class="text">Transportation to Warehouse</p>
+                <div class="card_details">
+                    <p>Transport ID: <span>TR-1234</span></p>
+                    <p>Transport Date: <span>2024-07-05</span></p>
+                    <p>Transport Time: <span>10:00 AM</span></p>
+                    <p>Transport Company: <span>TransLogistics</span></p>
+                </div>
+            </li>
+            <li id="card">
+                <i class="icon uil uil-estate"></i>
+                <div class="progress seven">
+                    <p>7</p>
+                    <i class="uil uil-check"></i>
+                </div>
+                <p class="text">Warehouse Storage</p>
+                <div class="card_details">
+                    <p>Storage Batch Number: <span>WS-6789</span></p>
+                    <p>Arrival Date: <span>2024-07-04</span></p>
+                    <p>Arrival Time: <span>2:00 PM</span></p>
+                    <p>Warehouse Name: <span>Main Warehouse</span></p>
+                    <p>Storage Location within warehouse: <span>Section A</span></p>
+                    <p>Storage Conditions: <span>Controlled Temp</span></p>
+                </div>
+            </li>
+            <li id="card">
+                <i class="icon uil uil-clinic-medical"></i>
+                <div class="progress eight">
+                    <p>8</p>
+                    <i class="uil uil-check"></i>
+                </div>
+                <p class="text">Sent to Pharmacy</p>
+                <div class="card_details">
+                    <p>Dispatch Batch Number: <span>DP-4567</span></p>
+                    <p>Dispatch Date: <span>2024-07-03</span></p>
+                    <p>Dispatch Time: <span>11:00 AM</span></p>
+                    <p>Pharmacy Name: <span>HealthPharma</span></p>
+                    <p>Quantity Dispatched: <span>8500 units</span></p>
+                </div>
+            </li>
+        </ul>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
+    <script src="js/adminProgress.js"></script>
+</body>
+
+</html>
