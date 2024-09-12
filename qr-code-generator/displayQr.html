@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QR Code Display</title>
+    <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f4f4f4;
+        }
+
+        img {
+            max-width: 100%;
+            height: auto;
+        }
+
+        .download-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 10px 15px;
+            background-color: #007bff;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            font-size: 16px;
+            width: 150px;
+            margin: 20px auto;
+            cursor: pointer;
+        }
+
+        .download-btn i {
+            margin-right: 8px;
+            font-size: 20px;
+        }
+
+        .download-btn:hover {
+            background-color: #0056b3;
+        }
+
+        .back-btn {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #607b9b;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            font-size: 16px;
+            margin-bottom: 20px;
+            cursor: pointer;
+            transition: background-color 0.3s, transform 0.3s;
+        }
+
+        .back-btn:hover {
+            background-color: #84a1c4;
+            transform: translateY(-2px);
+        }
+
+        header {
+            width: 100%;
+            padding: 20px;
+            position: absolute;
+            top: 0;
+            left: 0;
+            text-align: left;
+        }
+
+        @media print {
+            .back-btn {
+                display: none; /* Hide the back button when printing */
+            }
+            .download-btn{
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <a href="http://localhost:3000/addDrug.html" class="back-btn">Back</a>
+    </header>
+    <div>
+        <div id="identifier">
+            
+        </div>
+        <img id="qr-code" src="" alt="QR Code">
+        <a href="#" class="download-btn" onclick="downloadAsPDF()">
+            <i class="uil uil-print"></i> Download
+        </a>
+    </div>
+
+    <script>
+        window.onload = () => {
+            const urlParams = new URLSearchParams(window.location.search);
+            const qrCode = urlParams.get('qrCode');
+            const blockNumber = urlParams.get('blockNumber');
+
+            if (qrCode) {
+                document.getElementById('qr-code').src = decodeURIComponent(qrCode);
+                document.getElementById('identifier').innerHTML=`<h1>QR Code: ${blockNumber}</h1>`;
+            } else {
+                alert('Failed to load QR code');
+            }
+        };
+
+        function downloadAsPDF() {
+            window.print(); // This triggers the print dialog, allowing the user to save as PDF
+        }
+    </script>
+</body>
+</html>
