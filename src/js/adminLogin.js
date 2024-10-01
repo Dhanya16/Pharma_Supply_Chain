@@ -62,7 +62,7 @@ let abi = [
     "type": "function"
   }
 ]; 
-let contractAddress = "0xf316Def7039671fbBd102BfDc29122f1C8e4E43d"; 
+let contractAddress = "0x064fb99A06bc3C0360eC80335E79146c3ab737A0"; 
 
 supplyChain = new web3.eth.Contract(abi, contractAddress);
 async function signIn() {

@@ -1,6 +1,11 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const QRCode = require('qrcode');
+const JsBarcode = require('jsbarcode');
+const { createCanvas } = require('canvas');
+const { v4: uuidv4 } = require('uuid');
+const path = require('path');
+
 const { Web3 } = require('web3');
 const abiDecoder = require('abi-decoder'); // A library to decode ABI-encoded data
 
@@ -160,12 +165,15 @@ const abi = [
 
 // Initialize the ABI decoder with your contract's ABI
 abiDecoder.addABI(abi);
-
+app.set('view engine', 'ejs');
+app.set('views', path.join(__dirname, 'views'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 app.use(express.static(__dirname));
+
 // Function to handle BigInt conversion
+
 function replacer(key, value) {
     return typeof value === 'bigint' ? value.toString() : value;
 }
@@ -196,11 +204,55 @@ app.get('/generate-qr', async (req, res) => {
       // Generate QR Code
       const qrCodeImage = await QRCode.toDataURL(qrCodeUrl);
 
-      // Redirect to display.html with the QR code image data
-      res.redirect(`/displayQr.html?qrCode=${encodeURIComponent(qrCodeImage)}&blockNumber=${blockNumber}`);
+      // Generate Barcode
+      
+    // const canvas = createCanvas();
+// JsBarcode(canvas, barCodeUrl, { format: "CODE128" });    // JsBarcode(canvas, blockNumber, { format: "CODE128" });
+    // JsBarcode(canvas, barCodeUrl, { format: "CODE128" });  // You can adjust barcode format and options here
+    // JsBarcode(canvas, `block:${blockNumber}`, { format: "CODE128" });  // You can adjust barcode format and options here
+    // const barcodeImage = canvas.toDataURL();  // Get the barcode as a data URL
+
+    // Redirect to displayQr.html with both QR code and barcode images
+    res.redirect(`/displayQr.html?qrCode=${encodeURIComponent(qrCodeImage)}&blockNumber=${blockNumber}`);
   } catch (err) {
       console.error('Error generating QR code:', err.message);
       res.status(500).send('Error generating QR code');
+  }
+});
+
+app.get('/scan/block/:blockNumber', async (req, res) => {
+  const { blockNumber } = req.params;
+
+  // Validate block number
+  const blockNumberParsed = parseInt(blockNumber, 10);
+  if (isNaN(blockNumberParsed)) {
+      return res.status(400).send('Invalid block number');
+  }
+
+  try {
+      const block = await web3.eth.getBlock(blockNumberParsed, true);
+      if (!block) {
+          return res.status(404).send('Block not found');
+      }
+
+      const transaction = block.transactions[0]; // Assuming the first transaction is relevant
+      const decodedData = abiDecoder.decodeMethod(transaction.input);
+
+      if (!decodedData) {
+          return res.status(400).send('Could not decode transaction data');
+      }
+
+      // Extract the necessary drug details
+      const drugDetails = decodedData.params.find(param => param.name === 'newDrug');
+
+      // Render the blockInfo.ejs view and pass blockNumber and drugDetails
+      res.render('blockInfo', {
+          blockNumber: blockNumberParsed,
+          drugDetails: drugDetails ? drugDetails.value : null
+      });
+  } catch (err) {
+      console.error('Error fetching block information:', err.message);
+      res.status(500).send('Error fetching block information');
   }
 });
 

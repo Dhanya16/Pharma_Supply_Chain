@@ -7,7 +7,6 @@ contract PharmaSupplyChain {
     constructor() public {
         // Initialize admin addresses
         admins[0x3f188c173a0ba3fCd388fd23dF301E9aAB608a1a] = true; // Admin1
-        admins[0xBaeCF44A36291552DaDDACD14476425F29408eDB] = true; // Admin2
     }
 
     modifier onlyAdmin() {

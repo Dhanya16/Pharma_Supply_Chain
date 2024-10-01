@@ -1,0 +1,499 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Block Information</title>
+    <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css">
+    <script src="https://cdn.jsdelivr.net/gh/ethereum/web3.js@1.0.0-beta.36/dist/web3.min.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 40px;
+            background-color: #e8f0fa; /* Light background */
+            display: flex; 
+            justify-content: center; /* Center the content horizontally */
+            align-items: flex-start; /* Align content at the top */
+            min-height: 100vh; /* Full height background */
+        }
+
+        .details {
+            background: white;
+            padding: 25px;
+            border-radius: 8px;
+            box-shadow: 0 0 12px rgba(0,0,0,0.1);
+            width: 500px; /* Increased width for better readability */
+            text-align: left;
+            margin-right: 30px; /* More space between details and boxes */
+        }
+
+        h1 {
+            font-size: 26px;
+            margin-bottom: 20px;
+            color: #607b9b;
+        }
+
+        .back-btn {
+            display: inline-block;
+            padding: 10px 25px;
+            background-color: #607b9b;
+            color: white;
+            text-decoration: none;
+            border-radius: 6px;
+            margin-top: 20px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .back-btn:hover {
+            background-color: #84a1c4; 
+        }
+
+        .box-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px; /* Increase space between boxes */
+            justify-content: center; /* Center the boxes */
+            max-width: 900px; /* Adjust container width for better layout */
+        }
+
+        .box {
+            background: #a7c1e1;
+            padding: 40px; /* Increase padding for bigger size */
+            border-radius: 8px;
+            cursor: pointer;
+            text-align: center;
+            width: calc(30% - 20px); /* Larger boxes, fits three in a row with proper spacing */
+            position: relative;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.1); /* More shadow for depth */
+            transition: background-color 0.3s, transform 0.3s; /* Smooth transitions */
+        }
+
+        .box:hover {
+            transform: translateY(-5px); /* Slight hover lift effect */
+        }
+
+        .box-name {
+            margin-top: 40px;
+            font-weight: bold;
+            font-size: 18px;
+            color: #fff;
+        }
+
+        /* Modal styles */
+        .modal {
+            display: none;
+            /* Hidden by default */
+            position: fixed;
+            /* Stay in place */
+            z-index: 1;
+            /* Sit on top */
+            left: 0;
+            top: 0;
+            width: 100%;
+            /* Full width */
+            height: 100%;
+            /* Full height */
+            overflow: auto;
+            /* Enable scroll if needed */
+            background-color: rgba(0, 0, 0, 0.4);
+            /* Black w/ opacity */
+        }
+
+        .modal-content {
+            background-color: #fff;
+            /* White background for modal */
+            margin: 10% auto;
+            /* 10% from the top and centered */
+            padding: 20px;
+            /* Padding inside the modal */
+            border-radius: 8px;
+            /* Rounded corners */
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            /* Shadow for depth */
+            width: 80%;
+            /* Width of the modal */
+            max-width: 600px;
+            /* Maximum width */
+        }
+
+        .close {
+            color: #607b9b;
+            /* Close button color */
+            float: right;
+            /* Float to the right */
+            font-size: 28px;
+            /* Close button size */
+            font-weight: bold;
+            /* Bold font */
+        }
+
+        .close:hover,
+        .close:focus {
+            color: #a7c1e1;
+            /* Change color on hover */
+            text-decoration: none;
+            /* No underline */
+            cursor: pointer;
+            /* Pointer cursor */
+        }
+
+        input,
+        textarea,
+        select {
+            width: 100%;
+            /* Full width inputs */
+            padding: 10px;
+            /* Padding inside inputs */
+            margin-top: 5px;
+            /* Space above inputs */
+            border: 1px solid #a7c1e1;
+            /* Border color */
+            border-radius: 6px;
+            /* Rounded corners */
+            box-sizing: border-box;
+            /* Include padding in width */
+
+        }
+
+        button {
+            background-color: #607b9b;
+            /* Button background color */
+            color: white;
+            /* Text color */
+            padding: 10px 15px;
+            /* Padding inside button */
+            border: none;
+            /* No border */
+            border-radius: 4px;
+            /* Rounded corners */
+            cursor: pointer;
+            /* Pointer cursor */
+            font-size: 16px;
+            /* Button text size */
+            margin-top: 15px;
+            /* Space above button */
+        }
+
+        button:hover {
+            background-color: #84a1c4;
+            /* Change color on hover */
+        }
+
+        /* Responsive Adjustments */
+        @media (max-width: 768px) {
+            .box {
+                width: calc(45% - 20px); /* Reduce box size for smaller screens */
+            }
+
+            .details {
+                width: 100%; /* Make drug details full width */
+                margin-right: 0;
+                margin-bottom: 20px;
+            }
+        }
+
+        @media (max-width: 500px) {
+            .box {
+                width: calc(100% - 20px); /* Single box per row on mobile */
+            }
+
+            .modal-content {
+                width: 90%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="details">
+        <h1>Block Information</h1>
+        <p><strong>Block Number:</strong> <%= blockNumber %></p>
+        <div class="detail-item"><strong>Drug Name:</strong> <%= drugDetails.name || 'Not available' %></div><br>
+        <div class="detail-item"><strong>Category:</strong> <%= drugDetails.category || 'Not available' %></div><br>
+        <div class="detail-item"><strong>Description:</strong> <%= drugDetails.description || 'Not available' %></div><br>
+        <div class="detail-item"><strong>Manufacturer:</strong> <%= drugDetails.manufacturer || 'Not available' %></div><br>
+        <div class="detail-item"><strong>Batch number:</strong> <%= drugDetails.batchNumber || 'Not available' %></div><br>
+        <div class="detail-item"><strong>Manufacturing date:</strong> <%= drugDetails.manufacturingDate || 'Not available' %></div><br>
+        <div class="detail-item"><strong>Expiry date:</strong> <%= drugDetails.expiryDate || 'Not available' %></div><br>
+        <div class="detail-item"><strong>Quantity:</strong> <%= drugDetails.quantity || 'Not available' %></div><br>
+        <div class="detail-item"><strong>Storage conditions:</strong> <%= drugDetails.storageConditions || 'Not available' %></div>
+    </div>
+    <div class="box-container">
+        <div class="box" id="box1">
+            <div class="box-name">Initial Quality Control Test</div>
+        </div>
+        <div class="box" id="box2">
+            <div class="box-name">Drug Packaging</div>
+        </div>
+        <div class="box" id="box3">
+            <div class="box-name">Lab Testing</div>
+        </div>
+        <div class="box" id="box4">
+            <div class="box-name">Distributors</div>
+        </div>
+        <div class="box" id="box5">
+            <div class="box-name">Logistic Providers</div>
+        </div>
+        <div class="box" id="box6">
+            <div class="box-name">Warehouse</div>
+        </div>
+        <div class="box" id="box7">
+            <div class="box-name">Pharmacy</div>
+        </div>
+    </div>
+
+    <!-- Modals for Forms -->
+     <!-- Modal 1 - Initial Quality Control Test -->
+    <div class="modal" id="modal1">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal(1)">&times;</span>
+            <h2>Initial Quality Control Test</h2>
+            <label for="testId">Test ID:</label>
+            <input type="text" placeholder="Enter test ID" id="testId"><br><br>
+            <label for="testDate">Test Date:</label>
+            <input type="date" id="testDate"><br><br>
+            <label for="testTime">Test Time:</label>
+            <input type="time" id="testTime"><br><br>
+            <label for="testerName">Tester Name:</label>
+            <input type="text" placeholder="Enter tester name" id="testerName"><br><br>
+            <label for="result1">Results:</label>
+            <select id="initialTest">
+                <option value="Passed">Passed</option>
+                <option value="Failed">Failed</option>
+            </select><br><br>
+            <button onclick="submitForm(1)">Submit</button>
+        </div>
+    </div>
+
+    <!-- Modal 2 - Packaging Information -->
+    <div class="modal" id="modal2">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal(2)">&times;</span>
+            <h2>Packaging Information</h2>
+            <label for="packageBatch">Package Batch Number:</label>
+            <input type="text" placeholder="Package Batch Number" id="packageBatch"><br><br>
+            <label for="packageDate">Package Date:</label>
+            <input type="date" id="packageDate"><br><br>
+            <label for="packageTime">Package Time:</label>
+            <input type="time" id="packageTime"><br><br>
+            <label for="quantityPackaged">Quantity Packaged:</label>
+            <input type="number" placeholder="Quantity Packaged" id="quantityPackaged" min="1"><br><br>
+            <label for="packagingFacility">Packaging Facility:</label>
+            <input type="text" placeholder="Packaging Facility" id="packagingFacility"><br><br>
+            <button onclick="submitForm(2)">Submit</button>
+        </div>
+    </div>
+
+    <!-- Modal 3 - Lab Testing Information -->
+    <div class="modal" id="modal3">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal(3)">&times;</span>
+            <h2>Lab Testing Information</h2>
+            <label for="labTestId">Lab Test ID:</label>
+            <input type="text" placeholder="Lab Test ID" id="labTestId"><br><br>
+            <label for="labTestDate">Test Date:</label>
+            <input type="date" id="labTestDate"><br><br>
+            <label for="labTestTime">Test Time:</label>
+            <input type="time" id="labTestTime"><br><br>
+            <label for="labName">Lab Name:</label>
+            <input type="text" placeholder="Lab Name" id="labName"><br><br>
+            <label for="labTesterName">Tester Name:</label>
+            <input type="text" placeholder="Tester Name" id="labTesterName"><br><br>
+            <label for="labResults">Results:</label>
+            <select id="labResults">
+                <option value="Passed">Passed</option>
+                <option value="Failed">Failed</option>
+            </select><br><br>
+            <button onclick="submitForm(3)">Submit</button>
+        </div>
+    </div>
+
+    <!-- Modal 4 - Distribution Information -->
+    <div class="modal" id="modal4">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal(4)">&times;</span>
+            <h2>Distribution Information</h2>
+            <label for="distributionBatch">Distribution Batch Number:</label>
+            <input type="text" placeholder="Distribution Batch Number" id="distributionBatch"><br><br>
+            <label for="distributorName">Distributor Name:</label>
+            <input type="text" placeholder="Distributor Name" id="distributorName"><br><br>
+            <label for="dispatchDate">Dispatch Date:</label>
+            <input type="date" id="dispatchDate"><br><br>
+            <label for="dispatchTime">Dispatch Time:</label>
+            <input type="time" id="dispatchTime"><br><br>
+            <label for="quantityDispatched">Quantity Dispatched:</label>
+            <input type="number" placeholder="Quantity Dispatched" id="quantityDispatched" min="1"><br><br>
+            <button onclick="submitForm(4)">Submit</button>
+        </div>
+    </div>
+
+    <!-- Modal 5 - Logistics Provider Information -->
+    <div class="modal" id="modal5">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal(5)">&times;</span>
+            <h2>Logistics Provider Information</h2>
+            <label for="logisticsProvider">Logistics Provider:</label>
+            <input type="text" placeholder="Logistics Provider" id="logisticsProvider"><br><br>
+            <label for="pickupDate">Pickup Date:</label>
+            <input type="date" id="pickupDate"><br><br>
+            <label for="pickupTime">Pickup Time:</label>
+            <input type="time" id="pickupTime"><br><br>
+            <label for="deliveryDate">Delivery Date:</label>
+            <input type="date" id="deliveryDate"><br><br>
+            <label for="deliveryTime">Delivery Time:</label>
+            <input type="time" id="deliveryTime"><br><br>
+            <button onclick="submitForm(5)">Submit</button>
+        </div>
+    </div>
+
+    <!-- Modal 6 - Warehouse Information -->
+    <div class="modal" id="modal6">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal(6)">&times;</span>
+            <h2>Warehouse Information</h2>
+            <label for="warehouseNumber">Warehouse Number:</label>
+            <input type="text" placeholder="Warehouse Number" id="warehouseNumber"><br><br>
+            <label for="arrivalDate">Arrival Date:</label>
+            <input type="date" id="arrivalDate"><br><br>
+            <label for="arrivalTime">Arrival Time:</label>
+            <input type="time" id="arrivalTime"><br><br>
+            <label for="warehouseName">Warehouse Name:</label>
+            <input type="text" placeholder="Warehouse Name" id="warehouseName"><br><br>
+            <label for="storageLocation">Storage Location within Warehouse:</label>
+            <input type="text" placeholder="Storage Location within Warehouse" id="storageLocation"><br><br>
+            <label for="storageConditions">Storage Conditions:</label>
+            <input type="text" placeholder="Storage Conditions" id="storageConditions"><br><br>
+
+            <button onclick="submitForm(6)">Submit</button>
+        </div>
+    </div>
+    <!-- Modal 7 - Pharmacy Information -->
+    <div class="modal" id="modal7">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal(7)">&times;</span>
+            <h2>Form for Pharmacy Information</h2>
+            <label for="pharmacyName">Pharmacy Name:</label>
+            <input type="text" placeholder="Enter pharmacy name" id="pharmacyName" required><br><br>
+            <label for="drugName">Drug Name:</label>
+            <input type="text" placeholder="Enter drug name" id="drugName" required><br><br>
+            <label for="categoryName">Category Name:</label>
+            <input type="text" placeholder="Enter category name" id="categoryName" required><br><br>
+            <label for="drugDescription">Drug Description:</label>
+            <textarea placeholder="Enter drug description" id="drugDescription" required></textarea><br><br>
+            <label for="manufactureDate">Manufacture Date:</label>
+            <input type="date" id="manufactureDate" required><br><br>
+            <label for="expiryDate">Expiry Date:</label>
+            <input type="date" id="expiryDate" required><br><br>
+            <button onclick="submitForm(7)">Submit</button>
+        </div>
+    </div>
+
+</body>
+<script>
+  const boxAccessContractAddress = '0x9451aD6DbC01d97E8b923fF36676AeA7f2e4ab23'; // Replace with your Box Access contract address
+  const boxAccessContractABI = [
+    {
+      "inputs": [],
+      "payable": false,
+      "stateMutability": "nonpayable",
+      "type": "constructor"
+    },
+    {
+      "constant": true,
+      "inputs": [
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "name": "boxAddresses",
+      "outputs": [
+        {
+          "internalType": "address",
+          "name": "",
+          "type": "address"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "constant": true,
+      "inputs": [
+        {
+          "internalType": "uint256",
+          "name": "boxNumber",
+          "type": "uint256"
+        },
+        {
+          "internalType": "address",
+          "name": "_address",
+          "type": "address"
+        }
+      ],
+      "name": "isAuthorized",
+      "outputs": [
+        {
+          "internalType": "bool",
+          "name": "",
+          "type": "bool"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function"
+    }
+  ]; // Your Box Access contract ABI goes here
+
+  let web3;
+  let boxAccessContract;
+
+  window.onload = async () => {
+      // Check if MetaMask is installed
+      if (typeof window.ethereum !== 'undefined') {
+          web3 = new Web3(window.ethereum);
+          boxAccessContract = new web3.eth.Contract(boxAccessContractABI, boxAccessContractAddress);
+      } else {
+          alert("Please install MetaMask!");
+      }
+  };
+
+  async function checkAccess(boxNumber) {
+      const accounts = await ethereum.request({ method: 'eth_requestAccounts' });
+      const userAddress = accounts[0];
+      
+      // Call the box access contract to check if the address is authorized
+      const isAuthorized = await boxAccessContract.methods.isAuthorized(boxNumber, userAddress).call();
+
+      if (isAuthorized) {
+            // Open the corresponding modal
+            openModal(boxNumber);
+        } else {
+            alert("You are not authorized to access this page.");
+        }
+  }
+
+  function openModal(boxNumber) {
+      const modal = document.getElementById(`modal${boxNumber}`);
+      modal.style.display = "block";
+  }
+
+  function closeModal(boxNumber) {
+      const modal = document.getElementById(`modal${boxNumber}`);
+      modal.style.display = "none";
+  }
+
+  // Add click events for boxes
+  document.getElementById('box1').onclick = () => checkAccess(1);
+  document.getElementById('box2').onclick = () => checkAccess(2);
+  document.getElementById('box3').onclick = () => checkAccess(3);
+  document.getElementById('box4').onclick = () => checkAccess(4);
+  document.getElementById('box5').onclick = () => checkAccess(5);
+  document.getElementById('box6').onclick = () => checkAccess(6);
+  document.getElementById('box7').onclick = () => checkAccess(7);
+</script>
+</html>

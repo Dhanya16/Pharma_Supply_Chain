@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>QR Code Display</title>
+    <title>HealWings</title>
     <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css">
     <style>
         body {
@@ -73,11 +73,18 @@
             text-align: left;
         }
 
+        .image-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-top: 20px;
+        }
+
         @media print {
             .back-btn {
                 display: none; /* Hide the back button when printing */
             }
-            .download-btn{
+            .download-btn {
                 display: none;
             }
         }
@@ -89,11 +96,15 @@
     </header>
     <div>
         <div id="identifier">
-            
         </div>
-        <img id="qr-code" src="" alt="QR Code">
+        <div class="image-container">
+            <img id="qr-code" src="" alt="QR Code">
+        </div>
         <a href="#" class="download-btn" onclick="downloadAsPDF()">
             <i class="uil uil-print"></i> Download
+        </a>
+        <a href="#" class="download-btn" onclick="generateBarcode()">
+            <i class="uil uil-import"></i>Barcode
         </a>
     </div>
 
@@ -105,7 +116,7 @@
 
             if (qrCode) {
                 document.getElementById('qr-code').src = decodeURIComponent(qrCode);
-                document.getElementById('identifier').innerHTML=`<h1>QR Code: ${blockNumber}</h1>`;
+                document.getElementById('identifier').innerHTML = `<h1>Block Number: ${blockNumber}</h1>`;
             } else {
                 alert('Failed to load QR code');
             }
@@ -113,6 +124,19 @@
 
         function downloadAsPDF() {
             window.print(); // This triggers the print dialog, allowing the user to save as PDF
+        }
+        function generateBarcode() {
+            const qrCode = document.getElementById('qr-code').src;
+            const blockNumber = document.getElementById('identifier').innerText.split(': ')[1];
+
+            // You can implement the logic for generating barcode here
+            // For now, we'll just alert the information
+            alert(`Generating barcode for Block Number: ${blockNumber}`);
+
+            // Redirect to a new page or generate barcode logic can go here
+
+            window.location.href = `barcodeDisplay.html?blockNumber=${blockNumber}`;
+            // e.g., window.location.href = `/generateBarcode?blockNumber=${blockNumber}`;
         }
     </script>
 </body>
