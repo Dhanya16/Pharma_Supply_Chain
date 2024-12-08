@@ -17,151 +17,149 @@ const web3 = new Web3("http://127.0.0.1:7545");
 
 // ABI of your smart contract
 const abi = [
-    {
-      "inputs": [],
-      "payable": false,
-      "stateMutability": "nonpayable",
-      "type": "constructor"
-    },
-    {
-      "constant": true,
-      "inputs": [],
-      "name": "drugCount",
-      "outputs": [
-        {
-          "internalType": "uint256",
-          "name": "",
-          "type": "uint256"
-        }
-      ],
-      "payable": false,
-      "stateMutability": "view",
-      "type": "function"
-    },
-    {
-      "constant": true,
-      "inputs": [
-        {
-          "internalType": "uint256",
-          "name": "",
-          "type": "uint256"
-        }
-      ],
-      "name": "drugs",
-      "outputs": [
-        {
-          "internalType": "string",
-          "name": "name",
-          "type": "string"
-        },
-        {
-          "internalType": "string",
-          "name": "category",
-          "type": "string"
-        },
-        {
-          "internalType": "string",
-          "name": "description",
-          "type": "string"
-        },
-        {
-          "internalType": "string",
-          "name": "manufacturer",
-          "type": "string"
-        },
-        {
-          "internalType": "string",
-          "name": "batchNumber",
-          "type": "string"
-        },
-        {
-          "internalType": "string",
-          "name": "manufacturingDate",
-          "type": "string"
-        },
-        {
-          "internalType": "string",
-          "name": "expiryDate",
-          "type": "string"
-        },
-        {
-          "internalType": "uint256",
-          "name": "quantity",
-          "type": "uint256"
-        },
-        {
-          "internalType": "string",
-          "name": "storageConditions",
-          "type": "string"
-        }
-      ],
-      "payable": false,
-      "stateMutability": "view",
-      "type": "function"
-    },
-    {
-      "constant": false,
-      "inputs": [
-        {
-          "components": [
-            {
-              "internalType": "string",
-              "name": "name",
-              "type": "string"
-            },
-            {
-              "internalType": "string",
-              "name": "category",
-              "type": "string"
-            },
-            {
-              "internalType": "string",
-              "name": "description",
-              "type": "string"
-            },
-            {
-              "internalType": "string",
-              "name": "manufacturer",
-              "type": "string"
-            },
-            {
-              "internalType": "string",
-              "name": "batchNumber",
-              "type": "string"
-            },
-            {
-              "internalType": "string",
-              "name": "manufacturingDate",
-              "type": "string"
-            },
-            {
-              "internalType": "string",
-              "name": "expiryDate",
-              "type": "string"
-            },
-            {
-              "internalType": "uint256",
-              "name": "quantity",
-              "type": "uint256"
-            },
-            {
-              "internalType": "string",
-              "name": "storageConditions",
-              "type": "string"
-            }
-          ],
-          "internalType": "struct AddDrug.Drug",
-          "name": "newDrug",
-          "type": "tuple"
-        }
-      ],
-      "name": "addDrug",
-      "outputs": [],
-      "payable": false,
-      "stateMutability": "nonpayable",
-      "type": "function"
-    }
-  ];
+  {
+    "inputs": [],
+    "payable": false,
+    "stateMutability": "nonpayable",
+    "type": "constructor"
+  },
+  {
+    "constant": true,
+    "inputs": [],
+    "name": "drugCount",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "payable": false,
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "constant": true,
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "name": "drugs",
+    "outputs": [
+      {
+        "internalType": "string",
+        "name": "name",
+        "type": "string"
+      },
+      {
+        "internalType": "string",
+        "name": "category",
+        "type": "string"
+      },
+      {
+        "internalType": "string",
+        "name": "description",
+        "type": "string"
+      },
+      {
+        "internalType": "string",
+        "name": "manufacturer",
+        "type": "string"
+      },
+      {
+        "internalType": "string",
+        "name": "batchNumber",
+        "type": "string"
+      },
+      {
+        "internalType": "string",
+        "name": "manufacturingDate",
+        "type": "string"
+      },
+      {
+        "internalType": "string",
+        "name": "expiryDate",
+        "type": "string"
+      },
+      {
+        "internalType": "uint256",
+        "name": "quantity",
+        "type": "uint256"
+      },
+      {
+        "internalType": "string",
+        "name": "storageConditions",
+        "type": "string"
+      },
+      {
+        "internalType": "uint256",
+        "name": "blockNumber",
+        "type": "uint256"
+      }
+    ],
+    "payable": false,
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "constant": false,
+    "inputs": [
+      {
+        "internalType": "string",
+        "name": "name",
+        "type": "string"
+      },
+      {
+        "internalType": "string",
+        "name": "category",
+        "type": "string"
+      },
+      {
+        "internalType": "string",
+        "name": "description",
+        "type": "string"
+      },
+      {
+        "internalType": "string",
+        "name": "manufacturer",
+        "type": "string"
+      },
+      {
+        "internalType": "string",
+        "name": "batchNumber",
+        "type": "string"
+      },
+      {
+        "internalType": "string",
+        "name": "manufacturingDate",
+        "type": "string"
+      },
+      {
+        "internalType": "string",
+        "name": "expiryDate",
+        "type": "string"
+      },
+      {
+        "internalType": "uint256",
+        "name": "quantity",
+        "type": "uint256"
+      },
+      {
+        "internalType": "string",
+        "name": "storageConditions",
+        "type": "string"
+      }
+    ],
+    "name": "addDrug",
+    "outputs": [],
+    "payable": false,
+    "stateMutability": "nonpayable",
+    "type": "function"
+  }
+];
 
 // Initialize the ABI decoder with your contract's ABI
 abiDecoder.addABI(abi);
@@ -193,13 +191,14 @@ app.get('/generate-qr', async (req, res) => {
 
       const transaction = block.transactions[0];
       const decodedData = abiDecoder.decodeMethod(transaction.input);
+      console.log(decodedData);
 
       if (!decodedData) {
-          return res.status(400).send('Could not decode transaction data');
+          return res.status(400).send(`Could not decode transaction data,${blockNumber}`);
       }
 
       const data = JSON.stringify(decodedData.params.map(param => param.value), replacer);
-      const qrCodeUrl = `http://localhost:${port}/scanQr.html?data=${encodeURIComponent(data)}`;
+      const qrCodeUrl = `http://localhost:${port}/scanQr.html?data=${encodeURIComponent(data)}&blockNumber=${blockNumber}`;
 
       // Generate QR Code
       const qrCodeImage = await QRCode.toDataURL(qrCodeUrl);
@@ -243,12 +242,15 @@ app.get('/scan/block/:blockNumber', async (req, res) => {
       }
 
       // Extract the necessary drug details
-      const drugDetails = decodedData.params.find(param => param.name === 'newDrug');
+      const drugDetails = decodedData.params.reduce((acc, param) => {
+        acc[param.name] = param.value;
+        return acc;
+  },{});
 
       // Render the blockInfo.ejs view and pass blockNumber and drugDetails
       res.render('blockInfo', {
           blockNumber: blockNumberParsed,
-          drugDetails: drugDetails ? drugDetails.value : null
+          drugDetails: drugDetails
       });
   } catch (err) {
       console.error('Error fetching block information:', err.message);

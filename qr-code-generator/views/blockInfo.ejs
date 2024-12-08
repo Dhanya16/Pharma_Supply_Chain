@@ -8,24 +8,24 @@
     <script src="https://cdn.jsdelivr.net/gh/ethereum/web3.js@1.0.0-beta.36/dist/web3.min.js"></script>
     <style>
         body {
-            font-family: Arial, sans-serif;
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
             margin: 0;
             padding: 40px;
-            background-color: #e8f0fa; /* Light background */
-            display: flex; 
-            justify-content: center; /* Center the content horizontally */
-            align-items: flex-start; /* Align content at the top */
-            min-height: 100vh; /* Full height background */
+            background: linear-gradient(130deg, #a7c1e1, #001f3f, #cee0f4);
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            min-height: 100vh;
         }
 
         .details {
             background: white;
             padding: 25px;
             border-radius: 8px;
-            box-shadow: 0 0 12px rgba(0,0,0,0.1);
-            width: 500px; /* Increased width for better readability */
+            box-shadow: 0 0 12px rgba(0, 0, 0, 0.1);
+            width: 500px;
             text-align: left;
-            margin-right: 30px; /* More space between details and boxes */
+            margin-right: 30px;
         }
 
         h1 {
@@ -48,148 +48,173 @@
         }
 
         .back-btn:hover {
-            background-color: #84a1c4; 
+            background-color: #a7c1e1;
         }
 
         .box-container {
             display: flex;
+            /* Changed from grid to flex */
             flex-wrap: wrap;
-            gap: 20px; /* Increase space between boxes */
-            justify-content: center; /* Center the boxes */
-            max-width: 900px; /* Adjust container width for better layout */
+            /* Allow boxes to wrap to the next line */
+            gap: 20px;
+            justify-content: center;
+            max-width: 900px;
+            width: 100%;
+            margin-top: 20px;
+            /* Added margin-top for spacing */
         }
 
         .box {
-            background: #a7c1e1;
-            padding: 40px; /* Increase padding for bigger size */
-            border-radius: 8px;
+            background: #fff;
+            padding: 25px;
+            border-radius: 12px;
             cursor: pointer;
             text-align: center;
-            width: calc(30% - 20px); /* Larger boxes, fits three in a row with proper spacing */
-            position: relative;
-            box-shadow: 0 0 15px rgba(0, 0, 0, 0.1); /* More shadow for depth */
-            transition: background-color 0.3s, transform 0.3s; /* Smooth transitions */
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: space-between;
+            min-height: 200px;
+            max-width: 300px;
+            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            flex: 1 1 150px;
+            /* Allow flex items to grow and shrink, with a base size */
         }
 
         .box:hover {
-            transform: translateY(-5px); /* Slight hover lift effect */
+            transform: translateY(-10px);
+            box-shadow: 0 15px 25px rgba(0, 0, 0, 0.15);
         }
 
         .box-name {
-            margin-top: 40px;
+            margin-top: 15px;
             font-weight: bold;
             font-size: 18px;
-            color: #fff;
+            color: #333;
+        }
+
+        .icon {
+            font-size: 48px;
+            color: #001f3f;
+        }
+
+        .lock-icon {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            font-size: 24px;
+            color: white;
+        }
+
+        .locked {
+            background: linear-gradient(#a7c1e1, #e8f0fa);
+            position: relative;
+        }
+
+        /* Lock icon */
+        .locked::before {
+            font-size: 50px;
+            position: absolute;
+            color: white;
         }
 
         /* Modal styles */
         .modal {
             display: none;
-            /* Hidden by default */
             position: fixed;
-            /* Stay in place */
             z-index: 1;
-            /* Sit on top */
             left: 0;
             top: 0;
             width: 100%;
-            /* Full width */
             height: 100%;
-            /* Full height */
             overflow: auto;
-            /* Enable scroll if needed */
             background-color: rgba(0, 0, 0, 0.4);
-            /* Black w/ opacity */
         }
 
         .modal-content {
             background-color: #fff;
-            /* White background for modal */
             margin: 10% auto;
-            /* 10% from the top and centered */
             padding: 20px;
-            /* Padding inside the modal */
             border-radius: 8px;
-            /* Rounded corners */
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-            /* Shadow for depth */
             width: 80%;
-            /* Width of the modal */
             max-width: 600px;
-            /* Maximum width */
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
         }
 
         .close {
             color: #607b9b;
-            /* Close button color */
             float: right;
-            /* Float to the right */
             font-size: 28px;
-            /* Close button size */
             font-weight: bold;
-            /* Bold font */
         }
 
         .close:hover,
         .close:focus {
             color: #a7c1e1;
-            /* Change color on hover */
             text-decoration: none;
-            /* No underline */
             cursor: pointer;
-            /* Pointer cursor */
         }
 
         input,
         textarea,
         select {
             width: 100%;
-            /* Full width inputs */
             padding: 10px;
-            /* Padding inside inputs */
             margin-top: 5px;
-            /* Space above inputs */
             border: 1px solid #a7c1e1;
-            /* Border color */
             border-radius: 6px;
-            /* Rounded corners */
             box-sizing: border-box;
-            /* Include padding in width */
-
         }
 
         button {
             background-color: #607b9b;
-            /* Button background color */
             color: white;
-            /* Text color */
             padding: 10px 15px;
-            /* Padding inside button */
             border: none;
-            /* No border */
             border-radius: 4px;
-            /* Rounded corners */
             cursor: pointer;
-            /* Pointer cursor */
             font-size: 16px;
-            /* Button text size */
             margin-top: 15px;
-            /* Space above button */
         }
 
         button:hover {
             background-color: #84a1c4;
-            /* Change color on hover */
+        }
+
+        #error-message {
+            color: #d9534f;
+            background-color: #f2dede;
+            border-radius: 7px;
+            padding: 13px;
+            margin-right: 30px;
+            margin-top: 15px;
+            display: flex;
+            /* Use flexbox for layout */
+            align-items: center;
+            /* Vertically align icon and text */
+        }
+
+        .error-icon {
+            font-size: 40px;
+            /* Make the icon larger */
+            margin-right: 20px;
+            /* Space between icon and text */
+        }
+
+        .error-text {
+            font-size: 14px;
         }
 
         /* Responsive Adjustments */
         @media (max-width: 768px) {
             .box {
-                width: calc(45% - 20px); /* Reduce box size for smaller screens */
+                flex: 1 1 calc(45% - 20px);
+                /* Adjust box size for smaller screens */
             }
 
             .details {
-                width: 100%; /* Make drug details full width */
+                width: 100%;
                 margin-right: 0;
                 margin-bottom: 20px;
             }
@@ -197,7 +222,8 @@
 
         @media (max-width: 500px) {
             .box {
-                width: calc(100% - 20px); /* Single box per row on mobile */
+                flex: 1 1 100%;
+                /* Make boxes full width on very small screens */
             }
 
             .modal-content {
@@ -209,7 +235,7 @@
 <body>
     <div class="details">
         <h1>Block Information</h1>
-        <p><strong>Block Number:</strong> <%= blockNumber %></p>
+        <p id="blockNumberDisplay"><strong>Block Number:</strong> <%= blockNumber %></p>
         <div class="detail-item"><strong>Drug Name:</strong> <%= drugDetails.name || 'Not available' %></div><br>
         <div class="detail-item"><strong>Category:</strong> <%= drugDetails.category || 'Not available' %></div><br>
         <div class="detail-item"><strong>Description:</strong> <%= drugDetails.description || 'Not available' %></div><br>
@@ -219,28 +245,46 @@
         <div class="detail-item"><strong>Expiry date:</strong> <%= drugDetails.expiryDate || 'Not available' %></div><br>
         <div class="detail-item"><strong>Quantity:</strong> <%= drugDetails.quantity || 'Not available' %></div><br>
         <div class="detail-item"><strong>Storage conditions:</strong> <%= drugDetails.storageConditions || 'Not available' %></div>
+        <div id="error-message" style="display: none">
+          <div class="error-icon"><i class="uil uil-exclamation-circle"></i></div>
+          <div class="error-text"></div>
+      </div>
     </div>
     <div class="box-container">
         <div class="box" id="box1">
+          <span class="lock-icon" style="display: none"><i class="uil uil-lock"></i></span>
+            <i class="icon uil uil-file-check-alt" id="icon"></i>
             <div class="box-name">Initial Quality Control Test</div>
         </div>
         <div class="box" id="box2">
-            <div class="box-name">Drug Packaging</div>
+          <span class="lock-icon" style="display: none"><i class="uil uil-lock"></i></span>
+          <i class="icon uil uil-box"></i>
+          <div class="box-name">Drug Packaging</div>
         </div>
         <div class="box" id="box3">
-            <div class="box-name">Lab Testing</div>
+          <span class="lock-icon" style="display: none"><i class="uil uil-lock"></i></span>
+          <i class="icon uil uil-flask"></i>
+          <div class="box-name">Lab Testing</div>
         </div>
         <div class="box" id="box4">
-            <div class="box-name">Distributors</div>
+          <span class="lock-icon" style="display: none"><i class="uil uil-lock"></i></span>
+          <i class="icon uil uil-users-alt"></i>
+          <div class="box-name">Distributors</div>
         </div>
         <div class="box" id="box5">
-            <div class="box-name">Logistic Providers</div>
+          <span class="lock-icon" style="display: none"><i class="uil uil-lock"></i></span>
+          <i class="icon uil uil-truck"></i>
+          <div class="box-name">Logistic Providers</div>
         </div>
         <div class="box" id="box6">
-            <div class="box-name">Warehouse</div>
+          <span class="lock-icon" style="display: none"><i class="uil uil-lock"></i></span>
+          <i class="icon uil uil-estate"></i>
+          <div class="box-name">Warehouse</div>
         </div>
         <div class="box" id="box7">
-            <div class="box-name">Pharmacy</div>
+          <span class="lock-icon" style="display: none"><i class="uil uil-lock"></i></span>
+          <i class="icon uil uil-medkit"></i>
+          <div class="box-name">Pharmacy</div>
         </div>
     </div>
 
@@ -392,7 +436,639 @@
 
 </body>
 <script>
-  const boxAccessContractAddress = '0x9451aD6DbC01d97E8b923fF36676AeA7f2e4ab23'; // Replace with your Box Access contract address
+    let web3;
+    let boxAccessContract;
+    let drugLifecycleContract;
+    const blockNumberText = document.getElementById('blockNumberDisplay').textContent; 
+    const blockNumber = blockNumberText.split(': ')[1];
+    // Add this at the beginning of your existing script tag
+    const drugLifecycleContractAddress = '0xff6960336a90547B7cb60044cE6eC8A33D98f977'; // Replace with your deployed contract address
+    const drugLifecycleContractABI = [
+    {
+      "constant": true,
+      "inputs": [
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "name": "distributions",
+      "outputs": [
+        {
+          "internalType": "string",
+          "name": "distributionBatch",
+          "type": "string"
+        },
+        {
+          "internalType": "string",
+          "name": "distributorName",
+          "type": "string"
+        },
+        {
+          "internalType": "string",
+          "name": "dispatchDate",
+          "type": "string"
+        },
+        {
+          "internalType": "string",
+          "name": "dispatchTime",
+          "type": "string"
+        },
+        {
+          "internalType": "uint256",
+          "name": "quantityDispatched",
+          "type": "uint256"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "constant": true,
+      "inputs": [
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "name": "labTests",
+      "outputs": [
+        {
+          "internalType": "string",
+          "name": "labTestId",
+          "type": "string"
+        },
+        {
+          "internalType": "string",
+          "name": "labTestDate",
+          "type": "string"
+        },
+        {
+          "internalType": "string",
+          "name": "labTestTime",
+          "type": "string"
+        },
+        {
+          "internalType": "string",
+          "name": "labName",
+          "type": "string"
+        },
+        {
+          "internalType": "string",
+          "name": "testerName",
+          "type": "string"
+        },
+        {
+          "internalType": "string",
+          "name": "result",
+          "type": "string"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "constant": true,
+      "inputs": [
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        },
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "name": "lockedBoxes",
+      "outputs": [
+        {
+          "internalType": "bool",
+          "name": "",
+          "type": "bool"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "constant": true,
+      "inputs": [
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "name": "logisticsProviders",
+      "outputs": [
+        {
+          "internalType": "string",
+          "name": "logisticsProvider",
+          "type": "string"
+        },
+        {
+          "internalType": "string",
+          "name": "pickupDate",
+          "type": "string"
+        },
+        {
+          "internalType": "string",
+          "name": "pickupTime",
+          "type": "string"
+        },
+        {
+          "internalType": "string",
+          "name": "deliveryDate",
+          "type": "string"
+        },
+        {
+          "internalType": "string",
+          "name": "deliveryTime",
+          "type": "string"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "constant": true,
+      "inputs": [
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "name": "packagings",
+      "outputs": [
+        {
+          "internalType": "string",
+          "name": "packageBatch",
+          "type": "string"
+        },
+        {
+          "internalType": "string",
+          "name": "packageDate",
+          "type": "string"
+        },
+        {
+          "internalType": "string",
+          "name": "packageTime",
+          "type": "string"
+        },
+        {
+          "internalType": "uint256",
+          "name": "quantityPackaged",
+          "type": "uint256"
+        },
+        {
+          "internalType": "string",
+          "name": "packagingFacility",
+          "type": "string"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "constant": true,
+      "inputs": [
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "name": "pharmacies",
+      "outputs": [
+        {
+          "internalType": "string",
+          "name": "pharmacyName",
+          "type": "string"
+        },
+        {
+          "internalType": "string",
+          "name": "drugName",
+          "type": "string"
+        },
+        {
+          "internalType": "string",
+          "name": "categoryName",
+          "type": "string"
+        },
+        {
+          "internalType": "string",
+          "name": "drugDescription",
+          "type": "string"
+        },
+        {
+          "internalType": "string",
+          "name": "manufactureDate",
+          "type": "string"
+        },
+        {
+          "internalType": "string",
+          "name": "expiryDate",
+          "type": "string"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "constant": true,
+      "inputs": [
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "name": "qualityControls",
+      "outputs": [
+        {
+          "internalType": "string",
+          "name": "testId",
+          "type": "string"
+        },
+        {
+          "internalType": "string",
+          "name": "testDate",
+          "type": "string"
+        },
+        {
+          "internalType": "string",
+          "name": "testTime",
+          "type": "string"
+        },
+        {
+          "internalType": "string",
+          "name": "testerName",
+          "type": "string"
+        },
+        {
+          "internalType": "string",
+          "name": "result",
+          "type": "string"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "constant": true,
+      "inputs": [
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "name": "warehouses",
+      "outputs": [
+        {
+          "internalType": "string",
+          "name": "warehouseNumber",
+          "type": "string"
+        },
+        {
+          "internalType": "string",
+          "name": "arrivalDate",
+          "type": "string"
+        },
+        {
+          "internalType": "string",
+          "name": "arrivalTime",
+          "type": "string"
+        },
+        {
+          "internalType": "string",
+          "name": "warehouseName",
+          "type": "string"
+        },
+        {
+          "internalType": "string",
+          "name": "storageLocation",
+          "type": "string"
+        },
+        {
+          "internalType": "string",
+          "name": "storageConditions",
+          "type": "string"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "constant": false,
+      "inputs": [
+        {
+          "internalType": "uint256",
+          "name": "blockNumber",
+          "type": "uint256"
+        },
+        {
+          "internalType": "string",
+          "name": "testId",
+          "type": "string"
+        },
+        {
+          "internalType": "string",
+          "name": "testDate",
+          "type": "string"
+        },
+        {
+          "internalType": "string",
+          "name": "testTime",
+          "type": "string"
+        },
+        {
+          "internalType": "string",
+          "name": "testerName",
+          "type": "string"
+        },
+        {
+          "internalType": "string",
+          "name": "result",
+          "type": "string"
+        }
+      ],
+      "name": "addQualityControl",
+      "outputs": [],
+      "payable": false,
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "constant": false,
+      "inputs": [
+        {
+          "internalType": "uint256",
+          "name": "blockNumber",
+          "type": "uint256"
+        },
+        {
+          "internalType": "string",
+          "name": "packageBatch",
+          "type": "string"
+        },
+        {
+          "internalType": "string",
+          "name": "packageDate",
+          "type": "string"
+        },
+        {
+          "internalType": "string",
+          "name": "packageTime",
+          "type": "string"
+        },
+        {
+          "internalType": "uint256",
+          "name": "quantityPackaged",
+          "type": "uint256"
+        },
+        {
+          "internalType": "string",
+          "name": "packagingFacility",
+          "type": "string"
+        }
+      ],
+      "name": "addPackaging",
+      "outputs": [],
+      "payable": false,
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "constant": false,
+      "inputs": [
+        {
+          "internalType": "uint256",
+          "name": "blockNumber",
+          "type": "uint256"
+        },
+        {
+          "internalType": "string",
+          "name": "labTestId",
+          "type": "string"
+        },
+        {
+          "internalType": "string",
+          "name": "labTestDate",
+          "type": "string"
+        },
+        {
+          "internalType": "string",
+          "name": "labTestTime",
+          "type": "string"
+        },
+        {
+          "internalType": "string",
+          "name": "labName",
+          "type": "string"
+        },
+        {
+          "internalType": "string",
+          "name": "testerName",
+          "type": "string"
+        },
+        {
+          "internalType": "string",
+          "name": "result",
+          "type": "string"
+        }
+      ],
+      "name": "addLabTesting",
+      "outputs": [],
+      "payable": false,
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "constant": false,
+      "inputs": [
+        {
+          "internalType": "uint256",
+          "name": "blockNumber",
+          "type": "uint256"
+        },
+        {
+          "internalType": "string",
+          "name": "distributionBatch",
+          "type": "string"
+        },
+        {
+          "internalType": "string",
+          "name": "distributorName",
+          "type": "string"
+        },
+        {
+          "internalType": "string",
+          "name": "dispatchDate",
+          "type": "string"
+        },
+        {
+          "internalType": "string",
+          "name": "dispatchTime",
+          "type": "string"
+        },
+        {
+          "internalType": "uint256",
+          "name": "quantityDispatched",
+          "type": "uint256"
+        }
+      ],
+      "name": "addDistribution",
+      "outputs": [],
+      "payable": false,
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "constant": false,
+      "inputs": [
+        {
+          "internalType": "uint256",
+          "name": "blockNumber",
+          "type": "uint256"
+        },
+        {
+          "internalType": "string",
+          "name": "logisticsProvider",
+          "type": "string"
+        },
+        {
+          "internalType": "string",
+          "name": "pickupDate",
+          "type": "string"
+        },
+        {
+          "internalType": "string",
+          "name": "pickupTime",
+          "type": "string"
+        },
+        {
+          "internalType": "string",
+          "name": "deliveryDate",
+          "type": "string"
+        },
+        {
+          "internalType": "string",
+          "name": "deliveryTime",
+          "type": "string"
+        }
+      ],
+      "name": "addLogistics",
+      "outputs": [],
+      "payable": false,
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "constant": false,
+      "inputs": [
+        {
+          "internalType": "uint256",
+          "name": "blockNumber",
+          "type": "uint256"
+        },
+        {
+          "internalType": "string",
+          "name": "warehouseNumber",
+          "type": "string"
+        },
+        {
+          "internalType": "string",
+          "name": "arrivalDate",
+          "type": "string"
+        },
+        {
+          "internalType": "string",
+          "name": "arrivalTime",
+          "type": "string"
+        },
+        {
+          "internalType": "string",
+          "name": "warehouseName",
+          "type": "string"
+        },
+        {
+          "internalType": "string",
+          "name": "storageLocation",
+          "type": "string"
+        },
+        {
+          "internalType": "string",
+          "name": "storageConditions",
+          "type": "string"
+        }
+      ],
+      "name": "addWarehouse",
+      "outputs": [],
+      "payable": false,
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "constant": false,
+      "inputs": [
+        {
+          "internalType": "uint256",
+          "name": "blockNumber",
+          "type": "uint256"
+        },
+        {
+          "internalType": "string",
+          "name": "pharmacyName",
+          "type": "string"
+        },
+        {
+          "internalType": "string",
+          "name": "drugName",
+          "type": "string"
+        },
+        {
+          "internalType": "string",
+          "name": "categoryName",
+          "type": "string"
+        },
+        {
+          "internalType": "string",
+          "name": "drugDescription",
+          "type": "string"
+        },
+        {
+          "internalType": "string",
+          "name": "manufactureDate",
+          "type": "string"
+        },
+        {
+          "internalType": "string",
+          "name": "expiryDate",
+          "type": "string"
+        }
+      ],
+      "name": "addPharmacy",
+      "outputs": [],
+      "payable": false,
+      "stateMutability": "nonpayable",
+      "type": "function"
+    }
+  ];
+  const boxAccessContractAddress = '0x5337a678d73F29A2f3A2cAd6511Cd4B06eAc760E'; // Replace with your Box Access contract address
   const boxAccessContractABI = [
     {
       "inputs": [],
@@ -447,53 +1123,216 @@
       "stateMutability": "view",
       "type": "function"
     }
-  ]; // Your Box Access contract ABI goes here
+  ];
+  async function initContracts() {
+    if (typeof window.ethereum !== 'undefined') {
+        web3 = new Web3(window.ethereum);
+        boxAccessContract = new web3.eth.Contract(boxAccessContractABI, boxAccessContractAddress);
+        drugLifecycleContract = new web3.eth.Contract(drugLifecycleContractABI, drugLifecycleContractAddress);
+    } else {
+        alert("Please install MetaMask!");
+    }
+}
 
-  let web3;
-  let boxAccessContract;
+window.onload = async () => {
+    await initContracts(); 
+    const blockNumber = getCurrentBlockNumber(); // Get the current block number from the URL
+    await checkLockedBoxes(blockNumber); // Check the locked state when the page loads
+};
 
-  window.onload = async () => {
-      // Check if MetaMask is installed
-      if (typeof window.ethereum !== 'undefined') {
-          web3 = new Web3(window.ethereum);
-          boxAccessContract = new web3.eth.Contract(boxAccessContractABI, boxAccessContractAddress);
-      } else {
-          alert("Please install MetaMask!");
-      }
-  };
+async function checkLockedBoxes(blockNumber) {
+    for (let i = 1; i <= 7; i++) {
+        // Get the locked status for the box
+        const isLocked = await drugLifecycleContract.methods.lockedBoxes(i,blockNumber).call();
 
-  async function checkAccess(boxNumber) {
-      const accounts = await ethereum.request({ method: 'eth_requestAccounts' });
-      const userAddress = accounts[0];
-      
-      // Call the box access contract to check if the address is authorized
-      const isAuthorized = await boxAccessContract.methods.isAuthorized(boxNumber, userAddress).call();
-
-      if (isAuthorized) {
-            // Open the corresponding modal
-            openModal(boxNumber);
-        } else {
-            alert("You are not authorized to access this page.");
+        // Lock the box visually if it's locked
+        if (isLocked) {
+            lockBox(i, blockNumber); // Lock the box visually if it's locked
         }
-  }
+    }
+}
 
-  function openModal(boxNumber) {
-      const modal = document.getElementById(`modal${boxNumber}`);
-      modal.style.display = "block";
-  }
+function getCurrentBlockNumber() {
+    // Extract the current block number from the URL
+    const urlParts = window.location.pathname.split('/');
+    return parseInt(urlParts[urlParts.length - 1]); // Assuming the block number is the last part of the URL
+}
+async function submitForm(formNumber) {
+    if (!drugLifecycleContract) {
+        alert("Drug Lifecycle contract is not initialized.");
+        return;
+    }
+    const accounts = await ethereum.request({ method: 'eth_requestAccounts' });
+    const userAddress = accounts[0];
 
-  function closeModal(boxNumber) {
-      const modal = document.getElementById(`modal${boxNumber}`);
-      modal.style.display = "none";
-  }
+    try {
+      const blockNumber = getCurrentBlockNumber();
+        switch (formNumber) {
+            case 1:
+                const testId = document.getElementById('testId').value;
+                const testDate = document.getElementById('testDate').value;
+                const testTime = document.getElementById('testTime').value;
+                const testerName = document.getElementById('testerName').value;
+                const initialTestResult = document.getElementById('initialTest').value;
 
-  // Add click events for boxes
-  document.getElementById('box1').onclick = () => checkAccess(1);
-  document.getElementById('box2').onclick = () => checkAccess(2);
-  document.getElementById('box3').onclick = () => checkAccess(3);
-  document.getElementById('box4').onclick = () => checkAccess(4);
-  document.getElementById('box5').onclick = () => checkAccess(5);
-  document.getElementById('box6').onclick = () => checkAccess(6);
-  document.getElementById('box7').onclick = () => checkAccess(7);
+                await drugLifecycleContract.methods.addQualityControl(blockNumber, testId, testDate, testTime, testerName, initialTestResult).send({ from: userAddress });
+                // await drugLifecycleContract.methods.lockBox(formNumber, blockNumber).send({ from: userAddress }); // Lock the box
+                // lockBox(formNumber, blockNumber);
+                if (initialTestResult.toLowerCase() === "failed") {
+        // If the test failed, lock all the boxes visually
+        for (let i = 1; i <= 7; i++) {
+            lockBox(i, blockNumber,true); // Lock each box visually (box numbers 1 to 7)
+        }
+    } else {
+        // If not failed, only lock the current form's box visually
+        lockBox(formNumber, blockNumber); // Lock only the current box (for example, form 1)
+    }
+                closeModal(1);
+                break;
+            case 2:
+                const packageBatch = document.getElementById('packageBatch').value;
+                const packageDate = document.getElementById('packageDate').value;
+                const packageTime = document.getElementById('packageTime').value;
+                const quantityPackaged = document.getElementById('quantityPackaged').value;
+                const packagingFacility = document.getElementById('packagingFacility').value;
+
+                await drugLifecycleContract.methods.addPackaging(blockNumber, packageBatch, packageDate, packageTime, quantityPackaged, packagingFacility).send({ from: userAddress });
+                // await drugLifecycleContract.methods.lockBox(formNumber, blockNumber).send({ from: userAddress }); // Lock the box
+                lockBox(formNumber, blockNumber);
+                closeModal(2);
+                break;
+            case 3:
+                const labTestId = document.getElementById('labTestId').value;
+                const labTestDate = document.getElementById('labTestDate').value;
+                const labTestTime = document.getElementById('labTestTime').value;
+                const labName = document.getElementById('labName').value;
+                const labTesterName = document.getElementById('labTesterName').value;
+                const labResults = document.getElementById('labResults').value;
+
+                await drugLifecycleContract.methods.addLabTesting(blockNumber, labTestId, labTestDate, labTestTime, labName, labTesterName, labResults).send({ from: userAddress });
+                // await drugLifecycleContract.methods.lockBox(formNumber, blockNumber).send({ from: userAddress }); // Lock the box
+                if (labResults.toLowerCase() === "failed") {
+        // If the test failed, lock all the boxes visually
+        for (let i = 3; i <= 7; i++) {
+            lockBox(i, blockNumber,true); // Lock each box visually (box numbers 1 to 7)
+        }
+    } else {
+        // If not failed, only lock the current form's box visually
+        lockBox(formNumber, blockNumber); // Lock only the current box (for example, form 1)
+    }
+                closeModal(3);
+                break;
+            case 4:
+                const distributionBatch = document.getElementById('distributionBatch').value;
+                const distributorName = document.getElementById('distributorName').value;
+                const dispatchDate = document.getElementById('dispatchDate').value;
+                const dispatchTime = document.getElementById('dispatchTime').value;
+                const quantityDispatched = document.getElementById('quantityDispatched').value;
+
+                await drugLifecycleContract.methods.addDistribution(blockNumber, distributionBatch, distributorName, dispatchDate, dispatchTime, quantityDispatched).send({ from: userAddress });
+                // await drugLifecycleContract.methods.lockBox(formNumber, blockNumber).send({ from: userAddress }); // Lock the box
+                lockBox(formNumber, blockNumber);
+                closeModal(4);
+                break;
+            case 5:
+                const logisticsProvider = document.getElementById('logisticsProvider').value;
+                const pickupDate = document.getElementById('pickupDate').value;
+                const pickupTime = document.getElementById('pickupTime').value;
+                const deliveryDate = document.getElementById('deliveryDate').value;
+                const deliveryTime = document.getElementById('deliveryTime').value;
+
+                await drugLifecycleContract.methods.addLogistics(blockNumber, logisticsProvider, pickupDate, pickupTime, deliveryDate, deliveryTime).send({ from: userAddress });
+                // await drugLifecycleContract.methods.lockBox(formNumber, blockNumber).send({ from: userAddress }); // Lock the box
+                lockBox(formNumber, blockNumber);
+                closeModal(5);
+                break;
+            case 6:
+                const warehouseNumber = document.getElementById('warehouseNumber').value;
+                const arrivalDate = document.getElementById('arrivalDate').value;
+                const arrivalTime = document.getElementById('arrivalTime').value;
+                const warehouseName = document.getElementById('warehouseName').value;
+                const storageLocation = document.getElementById('storageLocation').value;
+                const storageConditions = document.getElementById('storageConditions').value;
+
+                await drugLifecycleContract.methods.addWarehouse(blockNumber, warehouseNumber, arrivalDate, arrivalTime, warehouseName, storageLocation, storageConditions).send({ from: userAddress });
+                // await drugLifecycleContract.methods.lockBox(formNumber, blockNumber).send({ from: userAddress }); // Lock the box
+                lockBox(formNumber, blockNumber);
+                closeModal(6);
+                break;
+            case 7:
+                const pharmacyName = document.getElementById('pharmacyName').value;
+                const drugName = document.getElementById('drugName').value;
+                const categoryName = document.getElementById('categoryName').value;
+                const drugDescription = document.getElementById('drugDescription').value;
+                const manufactureDate = document.getElementById('manufactureDate').value;
+                const expiryDate = document.getElementById('expiryDate').value;
+
+                await drugLifecycleContract.methods.addPharmacy(blockNumber, pharmacyName, drugName, categoryName, drugDescription, manufactureDate, expiryDate).send({ from: userAddress });
+                // await drugLifecycleContract.methods.lockBox(formNumber, blockNumber).send({ from: userAddress }); // Lock the box
+                lockBox(formNumber, blockNumber);
+                closeModal(7);
+                break;
+            default:
+                alert("Invalid form number!");
+                break;
+        }
+
+        alert("Data submitted to the blockchain successfully!");   
+    } catch (error) {
+        console.error("Error submitting form:", error);
+        alert("There was an error submitting the form.");
+    }
+}
+
+function lockBox(boxNumber, blockNumber,result=false) {
+  const box = document.getElementById(`box${boxNumber}`);
+  const errorMessageDiv = document.getElementById('error-message');
+  const icon = errorMessageDiv.querySelector('i');
+  if (box) {
+    box.classList.add('locked'); 
+    box.querySelector('.lock-icon').style.display = 'inline';
+    box.onclick = null; 
+    if(result){
+      errorMessageDiv.style.display = 'flex'; // Show the message box
+      errorMessageDiv.querySelector('.error-text').innerText = "Tests have failed.All boxes have been locked.";
+    }}
+}
+
+// Your Box Access contract ABI goes here
+async function checkAccess(boxNumber) {
+    const accounts = await ethereum.request({ method: 'eth_requestAccounts' });
+    const userAddress = accounts[0];
+    
+    // Call the box access contract to check if the address is authorized
+    const isAuthorized = await boxAccessContract.methods.isAuthorized(boxNumber, userAddress).call();
+
+    if (isAuthorized) {
+        // Open the corresponding modal
+        openModal(boxNumber);
+    } else {
+        alert("You are not authorized to access this page.");
+    }
+}
+
+function openModal(boxNumber) {
+    const modal = document.getElementById(`modal${boxNumber}`);
+    modal.style.display = "block";
+}
+
+function closeModal(boxNumber) {
+    const modal = document.getElementById(`modal${boxNumber}`);
+    modal.style.display = "none";
+}
+
+// Add click events for boxes
+document.getElementById('box1').onclick = () => checkAccess(1);
+document.getElementById('box2').onclick = () => checkAccess(2);
+document.getElementById('box3').onclick = () => checkAccess(3);
+document.getElementById('box4').onclick = () => checkAccess(4);
+document.getElementById('box5').onclick = () => checkAccess(5);
+document.getElementById('box6').onclick = () => checkAccess(6);
+document.getElementById('box7').onclick = () => checkAccess(7);
 </script>
+
+</body>
 </html>

@@ -12,6 +12,7 @@ contract AddDrug {
         string expiryDate;
         uint quantity;
         string storageConditions;
+        uint blockNumber; // New field to store block number
     }
 
     mapping(uint => Drug) public drugs;
@@ -22,9 +23,30 @@ contract AddDrug {
     }
 
     function addDrug(
-        Drug memory newDrug
+        string memory name,
+        string memory category,
+        string memory description,
+        string memory manufacturer,
+        string memory batchNumber,
+        string memory manufacturingDate,
+        string memory expiryDate,
+        uint quantity,
+        string memory storageConditions
     ) public {
         drugCount++;
-        drugs[drugCount] = newDrug;
+
+        // Store the drug details along with the current block number
+        drugs[drugCount] = Drug({
+            name: name,
+            category: category,
+            description: description,
+            manufacturer: manufacturer,
+            batchNumber: batchNumber,
+            manufacturingDate: manufacturingDate,
+            expiryDate: expiryDate,
+            quantity: quantity,
+            storageConditions: storageConditions,
+            blockNumber: block.number // Capture the current block number
+        });
     }
 }

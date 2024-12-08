@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HealWings</title>
+    <link rel="icon" href="images/favicon.ico" type="image/x-icon">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <link rel="stylesheet" type="text/css"
+        href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.css" />
+    <link rel="stylesheet" type="text/css"
+        href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick-theme.min.css" />
+    <style>
+        html, body {
+            height: 100%;
+            margin: 0;
+        }
+        /* General Styles */
+        body {
+            display: flex;
+            flex-direction: column;
+            font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+            background: linear-gradient(145deg, #a7c1e1, #e8f0fa);
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            margin: 0;
+            padding: 0;
+            padding-top: 80px; /* Add padding to prevent content from hiding under fixed header */
+        }
+        .content{
+            flex: 1;
+        }
+        /* Ensure the header is fixed */
+        .header {
+            background: linear-gradient(to right, rgba(206, 224, 244, 0.8), rgba(167, 193, 225, 0.8));
+            color: black;
+            backdrop-filter: blur(5px);
+            -webkit-backdrop-filter: blur(5px);
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+        }
+
+        .header .navbar-brand,
+        .header .nav-link {
+            color: black !important;
+        }
+
+        .header .navbar-brand img {
+            height: 40px;
+            width: 40px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-right: 10px;
+        }
+
+        .navbar-nav {
+            flex-grow: 1;
+            justify-content: center;
+        }
+
+        .header .nav-item {
+            margin-right: 15px;
+        }
+
+        .header .nav-item:last-child {
+            margin-right: 0;
+        }
+        .footer {
+            background-color: #343a40;
+            color: white;
+            text-align: center;
+            padding: 20px 0;
+            bottom: 0;
+            width: 100%;
+        }
+
+        .cart-btn {
+            margin-top: 2px;
+            margin-left: 10px;
+            background: rgb(96,123,155);
+            color:white;
+        }
+
+        .cart-section {
+            display: flex;
+            align-items: center;
+        }
+
+        @media (max-width: 767px) {
+            .cart-section {
+                flex-direction: column;
+                align-items: flex-end;
+                margin-top: 10px;
+            }
+
+            .cart-btn {
+                margin-top: 10px;
+            }
+        }
+
+        .user-icon-circle {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 40px;
+            height: 40px;
+            border: 2px solid #42251D;
+            border-radius: 50%;
+            background-color: white;
+            margin-left: 10px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .user-icon-circle i {
+            color: #42251D;
+            font-size: 18px;
+        }
+        a:hover{
+            text-decoration: none;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: auto;
+            text-align: center;
+        }
+
+        .container h2 {
+            font-size: 32px;
+            margin-bottom: 40px;
+            color: #333;
+        }
+
+        .card-container {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+        }
+
+        .card {
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+            flex: 1;
+            max-width: 300px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            text-align: center;
+        }
+
+        .card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 16px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        .card i {
+            font-size: 48px;
+            color: #84a1c4; /* Muted color from the palette */
+            margin-bottom: 20px;
+        }
+
+        .card h3 {
+            font-size: 24px;
+            color: #333;
+            margin-bottom: 10px;
+        }
+
+        .card p {
+            font-size: 16px;
+            color: #666;
+        }
+
+        .card a {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 10px 20px;
+            color: #84a1c4;
+            text-decoration: none;
+            border: 2px solid #84a1c4;
+            border-radius: 8px;
+            transition: background 0.3s ease, color 0.3s ease;
+        }
+
+        .card a:hover {
+            background: #84a1c4;
+            color: white;
+        }
+        .nav-link.active {
+    font-weight: bold; /* Makes the active link bold */
+    color: #007bff; /* Change the color to your desired active color */
+}
+    </style>
+</head>
+<body>
+
+    <nav class="navbar navbar-expand-lg navbar-light header">
+        <div class="container">
+            <a class="navbar-brand" href="#">
+                <img src="/images/logo.png" alt="Logo">
+                HealWings
+            </a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown"
+                aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNavDropdown">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/categories">Categories</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/orders">Orders</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/reviews">Reviews</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/aboutus">About us</a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle active" href="#" id="navbarDropdownMenuLink" role="button"
+                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            More
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                            <a class="dropdown-item" href="/contact">Contact Us</a>
+                            <a class="dropdown-item" href="/help">Help</a>
+                        </div>
+                    </li>
+                </ul>
+                <div class="ml-3 cart-section">
+                    <a href="/cart" class="btn cart-btn">My Cart</a>
+                    <form action="/logout" method="POST" class="d-inline">
+                        <button type="submit" class="btn cart-btn">Logout</button>
+                    </form>
+                    <a href="/profile" class="user-icon-link">
+                        <div class="user-icon-circle">
+                            <i class="fas fa-user"></i>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container content">
+        <h2>We're here to assist you. Please choose a contact method below:</h2>
+
+        <div class="card-container">
+            <div class="card">
+                <i class="fas fa-envelope"></i>
+                <h3>Email Support</h3>
+                <p>Email us at <strong>support@yourdomain.com</strong> and we'll get back to you within 24 hours.</p>
+                <a href="mailto:support@yourdomain.com">Contact via Email →</a>
+            </div>
+
+            <div class="card">
+                <i class="fas fa-phone"></i>
+                <h3>Phone Support</h3>
+                <p>Call us at <strong>(555) 555-1234</strong>. Our lines are open Monday to Friday from 9am to 5pm.</p>
+                <a href="tel:+15555551234">Call Now →</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="footer">
+        <p>&copy; 2024 HealWings. All rights reserved.</p>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+</body>
+</html>

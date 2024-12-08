@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/userLogin.css">
+    <title>HealWings Pharmacy Login</title>
+    <script src="https://cdn.jsdelivr.net/npm/web3@latest/dist/web3.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <div class="container">
+        <div class="login-box">
+            <h2>Log In</h2>
+                <form action="/login" method="POST">
+                    <div class="input-group">
+                        <i class="fas fa-envelope"></i>
+                        <input type="email" id="email" name="email" required>
+                        <label for="email">Email</label>
+                    </div>
+                    <div class="input-group">
+                        <i class="fas fa-lock"></i>
+                        <input type="password" id="password" name="password" required>
+                        <label for="password">Password</label>
+                        <i class="fas fa-eye-slash" id="togglePassword"></i>
+                    </div>
+                    <button type="submit" class="btn">Login</button>
+                </form>
+                <div id="registerPrompt">
+                    <p>Don't have an account? <a href="/register">Register here</a></p>
+                  </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script>
+        document.getElementById('togglePassword').addEventListener('click', function (e) {
+          const passwordInput = document.getElementById('password');
+          const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
+          passwordInput.setAttribute('type', type);
+          this.classList.toggle('fa-eye');
+          this.classList.toggle('fa-eye-slash');
+        });
+    
+        document.getElementById('password').addEventListener('input', function (e) {
+          const togglePasswordIcon = document.getElementById('togglePassword');
+          if (this.value.length > 0) {
+            togglePasswordIcon.style.display = 'block';
+          } else {
+            togglePasswordIcon.style.display = 'none';
+          }
+        });
+    
+        // Ensure the eye icon is initially hidden
+        document.getElementById('togglePassword').style.display = 'none';
+      </script>
+</body>
+</html>

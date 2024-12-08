@@ -88,6 +88,11 @@ const contractABI = [
         "internalType": "string",
         "name": "storageConditions",
         "type": "string"
+      },
+      {
+        "internalType": "uint256",
+        "name": "blockNumber",
+        "type": "uint256"
       }
     ],
     "payable": false,
@@ -98,56 +103,49 @@ const contractABI = [
     "constant": false,
     "inputs": [
       {
-        "components": [
-          {
-            "internalType": "string",
-            "name": "name",
-            "type": "string"
-          },
-          {
-            "internalType": "string",
-            "name": "category",
-            "type": "string"
-          },
-          {
-            "internalType": "string",
-            "name": "description",
-            "type": "string"
-          },
-          {
-            "internalType": "string",
-            "name": "manufacturer",
-            "type": "string"
-          },
-          {
-            "internalType": "string",
-            "name": "batchNumber",
-            "type": "string"
-          },
-          {
-            "internalType": "string",
-            "name": "manufacturingDate",
-            "type": "string"
-          },
-          {
-            "internalType": "string",
-            "name": "expiryDate",
-            "type": "string"
-          },
-          {
-            "internalType": "uint256",
-            "name": "quantity",
-            "type": "uint256"
-          },
-          {
-            "internalType": "string",
-            "name": "storageConditions",
-            "type": "string"
-          }
-        ],
-        "internalType": "struct AddDrug.Drug",
-        "name": "newDrug",
-        "type": "tuple"
+        "internalType": "string",
+        "name": "name",
+        "type": "string"
+      },
+      {
+        "internalType": "string",
+        "name": "category",
+        "type": "string"
+      },
+      {
+        "internalType": "string",
+        "name": "description",
+        "type": "string"
+      },
+      {
+        "internalType": "string",
+        "name": "manufacturer",
+        "type": "string"
+      },
+      {
+        "internalType": "string",
+        "name": "batchNumber",
+        "type": "string"
+      },
+      {
+        "internalType": "string",
+        "name": "manufacturingDate",
+        "type": "string"
+      },
+      {
+        "internalType": "string",
+        "name": "expiryDate",
+        "type": "string"
+      },
+      {
+        "internalType": "uint256",
+        "name": "quantity",
+        "type": "uint256"
+      },
+      {
+        "internalType": "string",
+        "name": "storageConditions",
+        "type": "string"
       }
     ],
     "name": "addDrug",
@@ -157,7 +155,7 @@ const contractABI = [
     "type": "function"
   }
 ];
-  const contractAddress = '0xb3651065932eD7F0441826906D3f4E6237C9640F';
+  const contractAddress = '0xDbc5e74E99d7204d8a65B6f3fea4DCE9A8237b7f';
     const pharmaContract = new web3.eth.Contract(contractABI, contractAddress);
 
     console.log(pharmaContract.methods);  // Debugging line to check available methods
@@ -175,22 +173,32 @@ const contractABI = [
         const quantity = parseInt(document.getElementById('quantity').value);
         const storageConditions = document.getElementById('storage-conditions').value;
 
-        const newDrug = {
-            name: productName,
-            category: productCategory,
-            description: productDescription,
-            manufacturer: manufacturer,
-            batchNumber: batchNumber,
-            manufacturingDate: manufacturingDate,
-            expiryDate: expiryDate,
-            quantity: quantity,
-            storageConditions: storageConditions
-        };
+        // const newDrug = {
+        //     name: productName,
+        //     category: productCategory,
+        //     description: productDescription,
+        //     manufacturer: manufacturer,
+        //     batchNumber: batchNumber,
+        //     manufacturingDate: manufacturingDate,
+        //     expiryDate: expiryDate,
+        //     quantity: quantity,
+        //     storageConditions: storageConditions
+        // };
 
         try {
           const accounts = await web3.eth.getAccounts();
           const account = accounts[0];
-          const receipt = await pharmaContract.methods.addDrug(newDrug).send({ from: account });
+          const receipt = await pharmaContract.methods.addDrug(
+            productName,
+            productCategory,
+            productDescription,
+            manufacturer,
+            batchNumber,
+            manufacturingDate,
+            expiryDate,
+            quantity,
+            storageConditions
+        ).send({ from: account });
   
           // Get block number from transaction receipt
           const blockNumber = receipt.blockNumber;

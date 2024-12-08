@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HealWings</title>
+    <link rel="icon" href="images/favicon.ico" type="image/x-icon">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <link rel="stylesheet" type="text/css"
+        href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.css" />
+    <link rel="stylesheet" type="text/css"
+        href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick-theme.min.css" />
+    <style>
+        html, body {
+            height: 100%;
+            margin: 0;
+        }
+        /* General Styles */
+        body {
+            display: flex;
+            flex-direction: column;
+            font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+            background: linear-gradient(145deg, #a7c1e1, #e8f0fa);
+            background-repeat: no-repeat;
+    background-attachment: fixed;
+            margin: 0;
+            padding: 0;
+            padding-top: 80px;
+            /* Add padding to prevent content from hiding under fixed header */
+        }
+        .content{
+            flex: 1;
+        }
+
+        /* Ensure the header is fixed */
+        .header {
+            background: linear-gradient(to right, rgba(206, 224, 244, 0.8), rgba(167, 193, 225, 0.8));
+            color: black;
+            backdrop-filter: blur(5px);
+            -webkit-backdrop-filter: blur(5px);
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+        }
+
+        .header .navbar-brand,
+        .header .nav-link {
+            color: black !important;
+        }
+
+        .header .navbar-brand img {
+            height: 40px;
+            width: 40px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-right: 10px;
+        }
+
+        .navbar-nav {
+            flex-grow: 1;
+            justify-content: center;
+        }
+
+        .header .nav-item {
+            margin-right: 15px;
+        }
+
+        .header .nav-item:last-child {
+            margin-right: 0;
+        }
+
+        /* Items Grid */
+        .items {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        /* Item Card */
+        .item {
+            background-color: rgb(132,161,196,0.5);
+            border-radius: 10px;
+            padding: 20px;
+            width: 100%;
+            margin: 20px;
+            /* Add margin for spacing between cards */
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+            text-align: center;
+            /* Center content */
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        /* Circular Image Styling */
+        .circle {
+            background-color: #ffffff;
+            /* Light color (white) inside the circle */
+            border: 4px solid #84a1c4;
+            border-radius: 50%;
+            padding: 10px;
+            display: inline-block;
+            width: 180px;
+            height: 180px;
+            overflow: hidden;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+            /* Soft shadow for depth */
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .item:hover {
+            transform: scale(1.1);
+            /* Slightly larger on hover */
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
+            /* Stronger shadow on hover */
+        }
+
+        .circle img {
+            border-radius: 50%;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .item-title {
+            font-size: 1.5em;
+            color: #2c3e50;
+            margin-top: 15px;
+        }
+
+        .item-description {
+            font-size: 1em;
+            color: white;
+            margin-top: 10px;
+            line-height: 1.4;
+        }
+
+        .footer {
+            background-color: #343a40;
+            color: white;
+            text-align: center;
+            padding: 20px 0;
+            bottom: 0;
+            width: 100%;
+        }
+
+        .cart-btn {
+            margin-top: 2px;
+            margin-left: 10px;
+            background: rgb(96,123,155);
+            color:white;
+        }
+
+        .cart-section {
+            display: flex;
+            align-items: center;
+        }
+
+        @media (max-width: 767px) {
+            .cart-section {
+                flex-direction: column;
+                align-items: flex-end;
+                margin-top: 10px;
+            }
+
+            .cart-btn {
+                margin-top: 10px;
+            }
+        }
+
+        .user-icon-circle {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 40px;
+            height: 40px;
+            border: 2px solid #42251D;
+            border-radius: 50%;
+            background-color: white;
+            margin-left: 10px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .user-icon-circle i {
+            color: #42251D;
+            font-size: 18px;
+        }
+
+        a:hover {
+            text-decoration: none;
+        }
+
+        .add-to-cart {
+            display: inline-block;
+            margin-top: 10px;
+            padding: 10px 20px;
+            background-color: #607b9b;
+            color: #fff;
+            font-size: 1em;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .add-to-cart:hover {
+            background-color: #84a1c4;
+        }
+
+        .quantity-control {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-top: 10px;
+        }
+
+        .quantity-control button {
+            background-color: #607b9b;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            padding: 5px 10px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .quantity-control button:hover {
+            background-color: #84a1c4;
+        }
+        .nav-link.active {
+    font-weight: bold; /* Makes the active link bold */
+    color: #007bff; /* Change the color to your desired active color */
+}
+    </style>
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-lg navbar-light header">
+        <div class="container">
+            <a class="navbar-brand" href="#">
+                <img src="/images/logo.png" alt="Logo">
+                HealWings
+            </a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown"
+                aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNavDropdown">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="/categories">Categories</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/orders">Orders</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/reviews">Reviews</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/aboutus">About us</a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button"
+                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            More
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                            <a class="dropdown-item" href="/contact">Contact Us</a>
+                            <a class="dropdown-item" href="/help">Help</a>
+                        </div>
+                    </li>
+                </ul>
+                <div class="ml-3 cart-section">
+                    <a href="/cart" class="btn cart-btn">My Cart</a>
+                    <form action="/logout" method="POST" class="d-inline">
+                        <button type="submit" class="btn cart-btn">Logout</button>
+                    </form>
+                    <a href="/profile" class="user-icon-link">
+                        <div class="user-icon-circle">
+                            <i class="fas fa-user"></i>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container">
+        <div class="row items">
+            <% items.forEach(item=> { %>
+                <div class="col-lg-4 col-md-4 col-sm-6 d-flex justify-content-center">
+                    <!-- Updated to col-lg-4 for three in a row -->
+                    <div class="item">
+                        <div class="circle">
+                            <% if (item.drug_image) { %>
+                                <img src="data:image/jpg;base64,<%= Buffer.from(item.drug_image).toString('base64') %>"
+                                    alt="Drug Image">
+                                <% } %>
+                        </div>
+                        <div class="item-title">
+                            <%= item.item_name %>
+                        </div>
+                        <div class="item-description">
+                            <p>
+                                <%= item.description %>
+                            </p>
+                        </div>
+                        <div class="item-description">
+                            <strong>Price:</strong> ₹<%= Number(item.price).toFixed(2) %>
+                        </div>
+                        <div class="item-description">
+                            <strong>Expiry Date:</strong>
+                            <%= new Date(item.expiry_date).toLocaleDateString('en-US', { year: 'numeric' , month: 'long'
+                                , day: 'numeric' }) %>
+                        </div>
+
+
+                        <form action="/add-to-cart" method="POST" class="d-inline">
+                            <input type="hidden" name="itemId" value="<%= item.item_id %>">
+
+                            <!-- Quantity Control -->
+                            <div class="quantity-control">
+                                <button type="button" class="btn btn-outline-secondary decrement">-</button>
+                                <input type="number" name="quantity" value="1" min="1" max="10"
+                                    class="form-control mx-2" style="width: 60px;">
+                                <button type="button" class="btn btn-outline-secondary increment">+</button>
+                            </div>
+
+                            <% if (isLoggedIn) { %>
+                                <button type="submit" class="btn add-to-cart">Add to Cart</button>
+                                <% } else { %>
+                                    <a href="/login" class="btn btn-success">Add to Cart</a>
+                                    <% } %>
+                        </form>
+                    </div>
+                </div>
+                <% }) %>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <div class="container">
+            <p class="text-center">© 2024 HealWings. All Rights Reserved.</p>
+        </div>
+    </footer>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script type="text/javascript"
+        src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.js"></script>
+    <script>
+        // JavaScript for incrementing and decrementing the quantity
+        document.querySelectorAll('.increment').forEach(function (button) {
+            button.addEventListener('click', function () {
+                const input = this.previousElementSibling;
+                let currentValue = parseInt(input.value);
+                if (currentValue < parseInt(input.max)) {
+                    input.value = currentValue + 1;
+                }
+            });
+        });
+
+        document.querySelectorAll('.decrement').forEach(function (button) {
+            button.addEventListener('click', function () {
+                const input = this.nextElementSibling;
+                let currentValue = parseInt(input.value);
+                if (currentValue > parseInt(input.min)) {
+                    input.value = currentValue - 1;
+                }
+            });
+        });
+        function formatDate(dateString) {
+            const options = { year: 'numeric', month: 'long', day: 'numeric' };
+            const date = new Date(dateString);
+            return date.toLocaleDateString('en-US', options); // Adjust 'en-US' for desired locale
+        }
+
+    </script>
+</body>
+
+</html>

@@ -84,7 +84,7 @@ window.addEventListener('load', async () => {
         "type": "function"
       }
     ];
-    const contractAddress = "0xB0F57A724522810cE164D76e15A397963d0Ca47d";
+    const contractAddress = "0x08035E25E41fE0363a0097591EFAd1Bf4baA6021";
     const pharmaContract = new web3.eth.Contract(contractABI, contractAddress);
 
     document.getElementById('add-category-form').addEventListener('submit', async function (event) {

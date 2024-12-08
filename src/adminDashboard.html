@@ -4,39 +4,39 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pharmaceuticals</title>
-
+    <title>HealWings Admin</title>
+    <link rel="icon" href="images/favicon.ico" type="image/x-icon">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- <a href="https://storyset.com/work">Work illustrations by Storyset</a> -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap">
     <style>
         body {
-            font-family: 'Poppins', sans-serif;
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
             margin: 0;
             height: 100vh;
-            background: linear-gradient(to bottom, #f0f8ff, #84a1c4);
             overflow-x: hidden;
+            background-color: #e6f7ff;
         }
 
         header {
             width: 100%;
             height: 100vh;
-            background-image: url('Images/adminBg1.webp');
-            background-size: cover;
-            background-position: center;
             position: relative;
             display: flex;
             flex-direction: column;
         }
 
         nav {
-            width: 100%; /* Full width */
+            width: 100%;
             height: 80px;
             color: black;
-            background-color: rgba(206, 224, 244, 0.2);
+            background-color: rgba(206, 224, 244, 0.7);
+            /* Softer blue for navigation bar */
             box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.1);
         }
 
         .nav-container {
-            max-width: 1200px; /* Center the content inside */
+            max-width: 1200px;
             margin: 0 auto;
             display: flex;
             justify-content: space-between;
@@ -48,13 +48,15 @@
 
         .brand {
             text-decoration: none;
-            color: #1F6296;
+            color: #053961;
+            /* Bright healthcare blue for branding */
             font-size: 30px;
             font-weight: bold;
             flex-shrink: 0;
         }
 
         .menu {
+            text-decoration: none;
             display: flex;
             align-items: center;
             gap: 15px;
@@ -63,7 +65,8 @@
 
         .menu a {
             text-decoration: none;
-            color: #333;
+            color: #053961;
+            /* Darker blue for menu links */
             padding: 10px 15px;
             font-size: 18px;
             transition: all 0.3s ease;
@@ -71,18 +74,17 @@
         }
 
         .menu a:hover {
-            color: #1F6296;
+            color: #5fa0d2;
+            /* Hover effect: Brighten the link */
             transform: scale(1.1);
-            text-decoration: underline;
-        }
+            text-decoration: none;        }
 
-        .dropdown {
-            position: relative;
-            display: inline-block;
-        }
+        .nav-item.dropdown {
+    position: relative;
+}
 
-        .arrow {
-            border: solid #1F6296;
+        /* .arrow {
+            border: solid #053961;
             border-width: 0 2px 2px 0;
             display: inline-block;
             padding: 2px;
@@ -90,19 +92,23 @@
             transform: rotate(45deg);
             width: 10px;
             height: 10px;
-        }
+        } */
 
         .dropdown-content {
-            display: none;
-            position: absolute;
-            background-color: rgba(206, 224, 244, 0.2);
-            min-width: 160px;
-            box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.1);
-            z-index: 1;
+            text-decoration: none;
+            display: none; /* Hide dropdown by default */
+    position: absolute;
+    top: 100%; /* Align dropdown below the menu */
+    left: 0;
+    background-color: rgba(206, 224, 244, 0.2); /* Custom background */
+    min-width: 160px;
+    box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.1);
+    z-index: 1000; /* Ensure dropdown appears above other elements */
         }
 
         .dropdown-content a {
-            color: #333;
+            text-decoration: none;
+            color: #030303;
             padding: 12px 16px;
             text-decoration: none;
             display: block;
@@ -110,10 +116,15 @@
         }
 
         .dropdown-content a:hover {
-            background-color: #f1f1f1;
+            text-decoration: none;
+            background-color: #053961;
+            /* New background color on hover */
+            color: #ffffff;
+            /* New text color on hover */
         }
 
         .dropdown:hover .dropdown-content {
+            text-decoration: none;
             display: block;
         }
 
@@ -124,16 +135,17 @@
             justify-content: center;
             align-items: center;
             text-align: center;
-            color: #ffffff;
+            color: #053961;
+            /* Dark blue for headings */
         }
 
         .h-txt h1 {
-            font-size: 3.5em;
+            font-size: 2.5em;
             font-weight: 700;
             opacity: 0;
             animation: fadeIn 2s ease-in-out forwards;
-            text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.7);
             margin: 0;
+            white-space: nowrap;
         }
 
         .txt2 {
@@ -142,7 +154,30 @@
             opacity: 0;
             animation: fadeIn 2s ease-in-out forwards;
             animation-delay: 1s;
-            text-shadow: 1px 1px 8px rgba(0, 0, 0, 0.5);
+            color: #053961;
+            text-decoration: none; /* Remove the underline */
+        }
+
+        .content-container {
+            display: flex;
+            align-items: center;
+            /* Center vertically */
+            justify-content: center;
+            /* Center the items horizontally */
+            width: 100%;
+            /* Full width of the section */
+        }
+
+        .image-container {
+            margin-right: 20px;
+            /* Space between image and text */
+        }
+
+        .text-container {
+            max-width: 600px;
+            /* Limit text width for better readability */
+            text-align: center;
+            /* Align text to the left */
         }
 
         @keyframes fadeIn {
@@ -198,46 +233,78 @@
                 font-size: 1.2em;
             }
         }
+        .logo {
+            width: 40px; /* Adjust the size as needed */
+            height: 40px; /* Adjust the size as needed */
+            margin-right: 10px; /* Adds space between the logo and the brand name */
+            vertical-align: middle; /* Aligns the logo vertically with the text */
+            border-radius: 50%; /* If you want the logo to be circular */
+        }
+        
     </style>
 </head>
 
 <body>
 
     <header>
-        <nav>
-            <div class="nav-container">
-                <div class="brand">Medicure</div>
-                <div class="menu">
-                    <a href="#">Home</a>
-                    <a href="adminCategory.html">Categories</a>
-                    <div class="dropdown">
-                        <a href="#">Orders <span class="arrow"></span></a>
-                        <div class="dropdown-content">
-                            <a href="#">New Orders</a>
-                            <a href="#">Purchased</a>
-                        </div>
-                    </div>
-                    <a href="#">Review</a>
-                    <a href="#">About Us</a>
-                    <div class="dropdown">
-                        <a href="#">More <span class="arrow"></span></a>
-                        <div class="dropdown-content">
-                            <a href="addCategory.html">Add Category</a>
-                            <a href="addDrug.html">Add Product</a>
-                            <a href="manageDrug.html">Manage Product</a>
-                            <a href="#">View Top 'K' Drugs</a>
-                        </div>
-                    </div>
+        <nav class="navbar navbar-expand-lg">
+            <div class="container-fluid nav-container">
+                <img src="images/logo.png" alt="HealWings Logo" class="logo me-2">
+                <a class="brand navbar-brand" href="#">HealWings</a>
+                <!-- Toggler button for small screens -->
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                    aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <!-- Collapsible menu -->
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav ms-auto menu">
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Home</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="adminCategory.html">Categories</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="newOrders.html">Orders</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="adminReviews.html">Reviews</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="adminAboutus.html">About Us</a>
+                        </li>
+                        <!-- Dropdown -->
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                               aria-expanded="false">
+                                More
+                            </a>
+                            <div class="dropdown-content">
+                                <a class="dropdown-item" href="addCategory.html">Add Category</a>
+                                <a class="dropdown-item" href="addDrug.html">Add Product</a>
+                                <a class="dropdown-item" href="manageDrug.html">Manage Product</a>
+                            </div>
+                        </li>
+                        
+                    </ul>
                 </div>
             </div>
         </nav>
 
         <section class="h-txt">
-            <h1>True Healthcare, For Your Family</h1>
-            <a class="txt2">We are here for your care</a>
+            <div class="content-container">
+                <div class="image-container">
+                    <img id="animatedSVG" class="animated" src="images/medicine-animate.svg" alt="Your SVG"
+                        style="width: 100%; height: 80%; object-fit: contain; object-position: left;">
+                </div>
+                <div class="text-container">
+                    <h1>True Healthcare, For Your Family</h1>
+                    <a class="txt2">We are here for your care</a>
+                </div>
+            </div>
         </section>
-    </header>
-
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 
 </html>

@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HealWings Admin</title>
+    <link rel="icon" href="images/favicon.ico" type="image/x-icon">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <link rel="stylesheet" type="text/css"
+        href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.css" />
+    <link rel="stylesheet" type="text/css"
+        href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick-theme.min.css" />
+    <style>
+        html, body {
+            height: 100%;
+            margin: 0;
+        }
+        body {
+    display: flex;
+    flex-direction: column;
+    font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+    background: linear-gradient(120deg, #e8f0fa, #84a1c4, #607b9b);
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    align-items: center;
+    margin: 0;
+            padding: 0;
+            padding-top: 80px;
+}
+
+header {
+    padding-right: 120px;
+    padding-top: 15px;
+}
+.content{
+            flex: 1;
+        }
+        .btn {
+    background: linear-gradient(120deg, #a4bcd9fb, #749ed2);
+    border: none;
+    cursor: pointer;
+    color: #fff;
+    font-weight: bold;
+    padding: 10px 25px; 
+    font-size: 20px; 
+    border-radius: 5px; 
+    position: absolute;
+    top: 20px; 
+    left: 20px; 
+    transition: background-color 0.3s ease, transform 0.3s ease; 
+}
+
+.btn:hover {
+    background: linear-gradient(120deg, #84a1c4,#a4bcd9fb);
+    box-shadow:0 5px 15px rgba(0,0,0,.3);
+    color: #fff;
+    transform: translateY(-2px);
+}
+        /* General Styles */
+
+        /* About Us Section */
+        .about-section {
+            text-align: center;
+            padding: 30px 20px;
+        }
+        .about-section h1 {
+            font-size: 36px;
+            color: #003366;
+        }
+        .about-section p {
+            font-size: 18px;
+            line-height: 1.6;
+            max-width: 800px;
+            margin: 20px auto;
+            color: #333;
+        }
+
+        /* Content with image and explanation */
+        .content-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 80%;
+            margin: 40px auto;
+        }
+        .content-container img {
+            width: 40%;
+            border-radius: 10px;
+        }
+        .content-text {
+            width: 55%;
+            font-size: 18px;
+            color: #333;
+            text-align: justify;
+        }
+
+        /* Centered Guide Section */
+        .guide-section {
+            text-align: center;
+            margin: 40px 0;
+        }
+        .guide-section h2 {
+            font-size: 24px;
+            color: #003366;
+            margin: 60px 0; 
+        }
+
+        /* Team Section */
+        .team-section {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin: 20px 0;
+        }
+        .team-member {
+            text-align: center;
+            font-size: 18px;
+            margin: 10px 40px;
+            color: #003366;
+            margin-bottom: 50px;
+        }
+        .team-member-name {
+            font-weight: bold;
+            font-size: 20px;
+        }
+
+    </style>
+</head>
+<body>
+    <header class="fixed-top">
+        <div class="container">
+            <a href="adminDashboard.html">
+                <button type="button" class="btn btn-secondary">Back</button>
+            </a>
+        </div>
+    </header>
+
+<div class="about-section">
+    <h1>About Us</h1>
+    <p>
+        We are a leading organization dedicated to delivering high-quality solutions in the pharmaceutical industry. With years of experience and a commitment to excellence, we have established ourselves as a trusted partner to our clients, ensuring they receive the best possible service and outcomes.
+    </p>
+</div>
+
+<div class="content-container">
+    <img src="/images/pharmacy.jpg" alt="About Us Image">
+    <div class="content-text">
+        Our mission is to provide innovative and sustainable solutions that enhance the value of our clients' businesses.                We envision a future where we are recognized as pioneers in the pharmaceutical industry, driving positive change through innovation, technology, and a customer-first approach. Our vision is to continuously evolve to meet the growing demands of the market while maintaining our core values.                 Our organization specializes in pharmaceutical products and services. We offer a wide range of solutions tailored to meet the unique needs of our clients, ensuring that each project is handled with the utmost care and precision. 
+ 
+    </div>
+</div>
+
+<div class="guide-section">
+    <h2>Under the guidance <br> of <br> Dr. Raghunandan K R</h2>
+</div>
+
+<div class="team-section">
+    <div class="team-member">
+        <div class="team-member-name">Akshatha D Bhat</div>
+        <div class="team-member-usn">4NM21CS011</div>
+    </div>
+    <div class="team-member">
+        <div class="team-member-name">Avisha V Shetty</div>
+        <div class="team-member-usn">4NM21CS041</div>
+    </div>
+    <div class="team-member">
+        <div class="team-member-name">Devishree Bangera</div>
+        <div class="team-member-usn">4NM21CS054</div>
+    </div>
+    <div class="team-member">
+        <div class="team-member-name">Dhanya</div>
+        <div class="team-member-usn">4NM21CS055</div>
+    </div>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+</body>
+</html>

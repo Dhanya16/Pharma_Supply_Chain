@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HealWings</title>
+    <link rel="icon" href="images/favicon.ico" type="image/x-icon">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <link rel="stylesheet" type="text/css"
+        href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.css" />
+    <link rel="stylesheet" type="text/css"
+        href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick-theme.min.css" />
+    <style>
+
+        body {
+            display: flex;
+            flex-direction: column;
+            font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            margin: 0;
+            padding: 0;
+            padding-top: 80px;
+            min-height: 100vh;
+            background: linear-gradient(to bottom, #e8f0fa, #84a1c4);
+            overflow: hidden;
+        }
+        .content{
+            flex: 1;
+        }
+        /* Ensure the header is fixed */
+        .header {
+            background: linear-gradient(to right, rgba(206, 224, 244, 0.8), rgba(167, 193, 225, 0.8));
+            color: black;
+            backdrop-filter: blur(5px);
+            -webkit-backdrop-filter: blur(5px);
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+        }
+
+        .header .navbar-brand,
+        .header .nav-link {
+            color: black !important;
+        }
+
+        .header .navbar-brand img {
+            height: 40px;
+            width: 40px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-right: 10px;
+        }
+
+        .navbar-nav {
+            flex-grow: 1;
+            justify-content: center;
+        }
+
+        .header .nav-item {
+            margin-right: 15px;
+        }
+
+        .header .nav-item:last-child {
+            margin-right: 0;
+        }
+        .footer {
+            background-color: #343a40;
+            color: white;
+            text-align: center;
+            padding: 20px 0;
+            bottom: 0;
+            width: 100%;
+        }
+
+        .cart-btn {
+            margin-top: 2px;
+            margin-left: 10px;
+            background: rgb(96,123,155);
+            color:white;
+        }
+
+        .cart-section {
+            display: flex;
+            align-items: center;
+        }
+
+        @media (max-width: 767px) {
+            .cart-section {
+                flex-direction: column;
+                align-items: flex-end;
+                margin-top: 10px;
+            }
+
+            .cart-btn {
+                margin-top: 10px;
+            }
+        }
+
+        .user-icon-circle {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 40px;
+            height: 40px;
+            border: 2px solid #42251D;
+            border-radius: 50%;
+            background-color: white;
+            margin-left: 10px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .user-icon-circle i {
+            color: #42251D;
+            font-size: 18px;
+        }
+        a:hover{
+            text-decoration: none;
+        }
+
+        /* Main layout using Flexbox */
+        .review-container {
+            display: flex;
+            width: 100%;
+            height: 100%;
+        }
+
+        /* Left side: Scrollable reviews list */
+        .reviews-list {
+            flex: 1;
+            padding: 20px;
+            overflow-y: auto;
+        }
+
+        .review-item {
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #ccc;
+            text-align: left;
+        }
+
+        .review-item h4 {
+            margin-bottom: 5px;
+            color: #444;
+            font-size: 18px;
+        }
+
+        .review-item p {
+            font-size: 14px;
+            color: #666;
+        }
+
+        /* Right side: Review form inside a smaller box */
+        .review-form-container {
+            width: 450px;
+            height: auto;
+            max-height: 400px; /* Adjusted to make the form smaller */
+            background: #ffffff;
+            padding: 20px 30px;
+            border: 1px solid #444;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            animation: popUp 0.5s ease-out;
+            box-shadow: 5px 5px 4px rgba(0, 0, 0, 0.5);
+            margin-top: auto;
+            margin-bottom: auto;
+        }
+
+        @keyframes popUp {
+            0% {
+                transform: scale(0.5);
+                opacity: 0;
+            }
+
+            100% {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+
+        .thanktxt {
+            font-size: 20px;
+            color: black;
+            margin-bottom: 10px;
+        }
+
+        .rate {
+            font-size: 20px;
+            color: #444;
+            margin-bottom: 10px;
+        }
+
+        .star-widget input {
+            display: none;
+        }
+
+        .star-widget label {
+    margin-bottom: 10px;
+    font-size: 40px;
+    color: #cee0f4;
+    padding: 10px;
+    transition: all 0.2s ease;
+    float:right;
+}
+
+input:not(:checked) ~ label:hover,
+input:not(:checked) ~ label:hover ~ label {
+    color: #fd4;
+}
+
+input:checked ~ label {
+    color: #fd4;
+}
+
+input#rate-5:checked ~ label{
+    color:#fe7;
+    text-shadow:0 0 20px #952;
+}
+
+        form .textarea {
+            width: 100%;
+            margin-bottom: 10px;
+        }
+
+        form .textarea textarea {
+            height: 100px;
+            width: 100%;
+            outline: none;
+            color: black;
+            border: 1px solid #333;
+            background: #cee0f4;
+            padding: 10px;
+            font-size: 17px;
+            resize: none;
+        }
+
+        /* Updated Button Style */
+        form .review-btn {
+            margin: 15px 0;
+            padding: 0;
+        }
+
+        form .review-btn button {
+            height: 40px;
+            width: 30%;
+            border: 1px solid #444;
+            outline: none;
+            background: #cee0f4;
+            color: #999;
+            font-size: 17px;
+            font-weight: 500;
+            text-transform: uppercase;
+            cursor: pointer;
+        }
+
+        form .review-btn button:hover {
+            background: #607b9b;
+        }
+        .vertical-line {
+    width: 1px; /* Width of the vertical line */
+    background-color: #ccc; /* Color of the line */
+    margin: 0 20px; /* Spacing on both sides of the line */
+}
+
+.filled {
+    color: #fd4; /* Color for filled stars */
+}
+.nav-link.active {
+    font-weight: bold; /* Makes the active link bold */
+    color: #007bff; /* Change the color to your desired active color */
+}
+
+    </style>
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-lg navbar-light header">
+        <div class="container">
+            <a class="navbar-brand" href="#">
+                <img src="/images/logo.png" alt="Logo">
+                HealWings
+            </a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown"
+                aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNavDropdown">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/categories">Categories</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/orders">Orders</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="/reviews">Reviews</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/aboutus">About us</a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button"
+                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            More
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                            <a class="dropdown-item" href="/contact">Contact Us</a>
+                            <a class="dropdown-item" href="/help">Help</a>
+                        </div>
+                    </li>
+                </ul>
+                <div class="ml-3 cart-section">
+                    <a href="/cart" class="btn cart-btn">My Cart</a>
+                    <form action="/logout" method="POST" class="d-inline">
+                        <button type="submit" class="btn cart-btn">Logout</button>
+                    </form>
+                    <a href="/profile" class="user-icon-link">
+                        <div class="user-icon-circle">
+                            <i class="fas fa-user"></i>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </nav>
+    <div class="review-container content">
+        <!-- Left side: Scrollable reviews list -->
+        <div class="reviews-list">
+            <% reviews.forEach(review => { %>
+                <div class="review-item">
+                    <h4><%= review.user_name %> (<%= review.email %>)</h4>
+                    <p><strong>Rating: </strong>
+                        <span>
+                            <% for (let i = 1; i <= 5; i++) { %>
+                                <i class="fas fa-star <%= i <= review.rating ? 'filled' : '' %>"></i>
+                            <% } %>
+                        </span>
+                    </p>
+                    
+                    <p><%= review.comment %></p>
+                    <p><small>Posted on: <%= new Date(review.created_at).toLocaleString() %></small></p>
+                </div>
+            <% }) %>
+        </div>
+        <div class="vertical-line"></div>
+        <!-- Right side: Review form in a smaller box -->
+        <div class="review-form-container">
+            <div class="star-widget">
+                <p class="thanktxt">Thank you for shopping!</p>
+                <p class="rate">Rate Us</p>
+                <form action="/reviews" method="POST">
+                <input type="radio" name="rating" id="rate-5" value="5">
+                <label for="rate-5" class="fas fa-star"></label>
+                <input type="radio" name="rating" id="rate-4" value="4">
+                <label for="rate-4" class="fas fa-star"></label>
+                <input type="radio" name="rating" id="rate-3" value="3">
+                <label for="rate-3" class="fas fa-star"></label>
+                <input type="radio" name="rating" id="rate-2" value="2">
+                <label for="rate-2" class="fas fa-star"></label>
+                <input type="radio" name="rating" id="rate-1" value="1">
+                <label for="rate-1" class="fas fa-star"></label>
+
+                
+                    <div class="textarea">
+                        <textarea name="comment" cols="30" placeholder="Share your experience.."></textarea>
+                    </div>
+                    <div class="review-btn">
+                        <button type="submit">Post</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="footer">
+        <p>&copy; 2024 HealWings. All rights reserved.</p>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+
+</html>

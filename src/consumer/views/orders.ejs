@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HealWings</title>
+    <link rel="icon" href="images/favicon.ico" type="image/x-icon">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <link rel="stylesheet" type="text/css"
+        href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.css" />
+    <link rel="stylesheet" type="text/css"
+        href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick-theme.min.css" />
+    <style>
+        html,
+        body {
+            height: 100%;
+            margin: 0;
+        }
+
+        body {
+            display: flex;
+            flex-direction: column;
+            font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+            background: linear-gradient(145deg, #a7c1e1, #e8f0fa);
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            margin: 0;
+            padding: 0;
+            padding-top: 80px;
+            /* Add padding to prevent content from hiding under fixed header */
+        }
+
+        .content {
+            flex: 1;
+        }
+
+        .header {
+            background: linear-gradient(to right, rgba(206, 224, 244, 0.8), rgba(167, 193, 225, 0.8));
+            color: black;
+            backdrop-filter: blur(5px);
+            -webkit-backdrop-filter: blur(5px);
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+        }
+
+        .header .navbar-brand,
+        .header .nav-link {
+            color: black !important;
+        }
+
+        .header .navbar-brand img {
+            height: 40px;
+            width: 40px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-right: 10px;
+        }
+
+        .navbar-nav {
+            flex-grow: 1;
+            justify-content: center;
+        }
+
+        .header .nav-item {
+            margin-right: 15px;
+        }
+
+        .header .nav-item:last-child {
+            margin-right: 0;
+        }
+
+        h1 {
+            margin-bottom: 20px;
+            color: #333;
+        }
+
+        .order-table {
+            margin-top: 20px;
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+            background-color: #cee0f4;
+            /* Base table background */
+        }
+
+        .order-table th,
+        .order-table td {
+            padding: 12px 15px;
+            text-align: left;
+            border-bottom: 1px solid #a5bbdb;
+            /* Borders between rows */
+        }
+
+        .order-table th {
+            background-color: #84a1c4;
+            /* Header color */
+            color: white;
+            font-weight: bold;
+        }
+
+        /* Alternate row colors */
+        .order-table tbody tr:nth-child(odd) {
+            background-color: #e0ebf8;
+            /* Lighter blue for odd rows */
+        }
+
+        .order-table tbody tr:nth-child(even) {
+            background-color: #d4e4f3;
+            /* Slightly darker blue for even rows */
+        }
+
+        .total-row {
+            background-color: transparent;
+            /* Keep the row background consistent */
+            color: black;
+            /* Set text to black */
+            font-weight: bold;
+            /* Highlight the total */
+        }
+
+        .total-row td {
+            text-align: right;
+            /* Align the text to the right for consistency */
+            padding: 12px 15px;
+            /* Standard padding */
+        }
+
+        .btn {
+            margin-right: 5px;
+        }
+
+        .footer {
+            background-color: #343a40;
+            color: white;
+            text-align: center;
+            padding: 20px 0;
+            bottom: 0;
+            width: 100%;
+        }
+
+        .cart-btn {
+            margin-top: 2px;
+            margin-left: 10px;
+            background: rgb(96,123,155);
+            color:white;
+        }
+
+        .cart-section {
+            display: flex;
+            align-items: center;
+        }
+
+        @media (max-width: 767px) {
+            .cart-section {
+                flex-direction: column;
+                align-items: flex-end;
+                margin-top: 10px;
+            }
+
+            .cart-btn {
+                margin-top: 10px;
+            }
+        }
+
+        .user-icon-circle {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 40px;
+            height: 40px;
+            border: 2px solid #42251D;
+            border-radius: 50%;
+            background-color: white;
+            margin-left: 10px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .user-icon-circle i {
+            color: #42251D;
+            font-size: 18px;
+        }
+
+        a:hover {
+            text-decoration: none;
+        }
+        .nav-link.active {
+    font-weight: bold; /* Makes the active link bold */
+    color: #007bff; /* Change the color to your desired active color */
+}
+    </style>
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-lg navbar-light header">
+        <div class="container">
+            <a class="navbar-brand" href="#">
+                <img src="/images/logo.png" alt="Logo">
+                HealWings
+            </a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown"
+                aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNavDropdown">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/categories">Categories</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="/orders">Orders</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/reviews">Reviews</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/aboutus">About us</a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button"
+                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            More
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                            <a class="dropdown-item" href="/contact">Contact Us</a>
+                            <a class="dropdown-item" href="/help">Help</a>
+                        </div>
+                    </li>
+                </ul>
+                <div class="ml-3 cart-section">
+                    <a href="/cart" class="btn cart-btn">My Cart</a>
+                    <form action="/logout" method="POST" class="d-inline">
+                        <button type="submit" class="btn cart-btn">Logout</button>
+                    </form>
+                    <a href="/profile" class="user-icon-link">
+                        <div class="user-icon-circle">
+                            <i class="fas fa-user"></i>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </nav>
+    <div class="container content">
+        <h1>Orders</h1>
+        <table class="table table-striped order-table">
+            <thead>
+                <tr>
+                    <th>Sl no.</th>
+                    <th>Order ID</th>
+                    <th>Order Date</th>
+                    <th>Total Amount</th>
+                    <th>Details</th>
+                    <th>Status</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <!-- temp_orders table -->
+            <tbody>
+                <% if (orders.length===0) { %>
+                    <tr>
+                        <td colspan="6" class="text-center">No orders found!</td>
+                    </tr>
+                    <% } else { %>
+                        <% orders.forEach((order, index)=> { %>
+                            <% if(order.is_payment==0){ %>
+                                <tr>
+                                    <td>
+                                        <%= index + 1 %>
+                                    </td>
+                                    <td>
+                                        <%= order.temp_order_id %>
+                                    </td>
+                                    <td>
+                                        <%= new Date(order.order_date).toLocaleDateString() %>
+                                    </td>
+                                    <td>₹<%= (Number(order.total_amount) || 0).toFixed(2) %>
+                                    </td>
+                                    <td>
+                                        <button class="btn btn-info btn-sm" data-toggle="modal"
+                                            data-target="#orderDetailsModal"
+                                            data-order-id="<%= order.temp_order_id %>">View Details</button>
+                                    </td>
+                                    <td>
+                                        <% if (order.status==='true' ) { %>
+                                            <p class="btn btn-primary btn-sm">Accepted</p>
+                                            <% } else if (order.status==='false' ) { %>
+                                                <p class="btn btn-primary btn-sm">Rejected</p>
+                                                <% }else{ %>
+                                                    <p class="btn btn-primary btn-sm">Pending</p>
+                                                    <%}%>
+                                    </td>
+                                    <td>
+                                        <% if (order.status==='true' ) { %>
+                                            <a href="/proceed-to-pay/<%= order.temp_order_id %>"
+                                                class="btn btn-primary btn-sm">Proceed to Pay</a>
+                                            <% } else if (order.status==='false' ) { %>
+                                                <form action="/api/remove-order" method="POST" style="display:inline;">
+                                                    <input type="hidden" name="_method" value="PUT">
+                                                    <!-- Hidden field to simulate PUT -->
+                                                    <input type="hidden" name="order_id"
+                                                        value="<%= order.temp_order_id %>">
+                                                    <button type="submit" class="btn btn-danger btn-sm">Remove</button>
+                                                </form>
+
+                                                <% }else{ %>
+                                                    <p class="btn btn-primary btn-sm">Waiting</p>
+                                                    <%}%>
+                                    </td>
+                                </tr>
+                                <% } %>
+                                    <% }); %>
+                                        <% } %>
+            </tbody>
+        </table>
+    </div>
+
+   <!-- Modal for Order Details -->
+<div class="modal fade" id="orderDetailsModal" tabindex="-1" role="dialog" aria-labelledby="orderDetailsModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="orderDetailsModalLabel">Order Details</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Product Name</th>
+                            <th>Quantity</th>
+                            <th>Price</th>
+                        </tr>
+                    </thead>
+                    <tbody id="orderItemsBody">
+                        <!-- Order items will be injected here -->
+                    </tbody>
+                </table>
+                <div id="orderAddress">
+                    <!-- Address will be injected here -->
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+    <div class="footer">
+        <p>&copy; 2024 HealWings. All rights reserved.</p>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script>
+        // Use jQuery to listen for the modal show event
+        $('#orderDetailsModal').on('show.bs.modal', function (event) {
+            var button = $(event.relatedTarget); // Button that triggered the modal
+            var orderId = button.data('order-id'); // Extract info from data-* attributes
+    
+            // Fetch order items and address for the selected order
+            $.ajax({
+                url: '/order-details/' + orderId,
+                method: 'GET',
+                success: function (data) {
+                    // Clear previous items and address
+                    $('#orderItemsBody').empty();
+                    $('#orderAddress').empty();
+    
+                    // Populate the modal with order items
+                    data.items.forEach(function (item, index) {
+                        $('#orderItemsBody').append(`
+                            <tr>
+                                <td>${index + 1}</td>
+                                <td>${item.item_name}</td>
+                                <td>${item.quantity}</td>
+                                <td>₹${(Number(item.price) || 0).toFixed(2)}</td>
+                            </tr>
+                        `);
+                    });
+    
+                    // Populate the modal with the address
+                    $('#orderAddress').html(`
+                        <p><strong>Address:</strong> ${data.address}</p>
+                    `);
+                },
+                error: function (error) {
+                    console.error('Error fetching order details:', error);
+                    $('#orderItemsBody').html('<tr><td colspan="4" class="text-center">Error loading items.</td></tr>');
+                    $('#orderAddress').html('<p class="text-center">Error loading address.</p>');
+                }
+            });
+        });
+    </script>
+    
+    
+</body>
+
+</html>

@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pharmacy Admin Panel</title>
+
+    <!-- Css files -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+        crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="/css/pharmacy.css"> <!-- Ensure your path is correct -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="js/pharmacy.js"></script> <!-- Ensure your path is correct -->
+    <!-- Css files ends -->
+</head>
+
+<body>
+    <!-- Navigation bar -->
+    <nav class="navbar bg-light">
+        <div class="container-fluid flex-column align-items-start">
+            <div class="profile-icon text-center mb-3">
+                <img src="/images/admin.jpeg" alt="Profile picture" class="rounded-circle" width="100px"> <!-- Ensure your path is correct -->
+            </div>
+            <p>Admin</p>
+            <ul class="nav flex-column w-100">
+                <li class="nav-item">
+                    <a class="nav-link" href="#placedOrdersMenu" id="placedOrders"><i class="bi bi-cart-fill me-2"></i> Placed Orders</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#addDetailsMenu" id="addDetails"><i class="bi bi-pencil-square me-2"></i> Add Details</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#ordersMenu" id="orders"><i class="bi bi-box-seam me-2"></i> Orders</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#verifyPrescriptionMenu" id="verifyPrescription"><i class="bi bi-check-circle me-2"></i> Verify</a>
+                </li>
+            </ul>
+            <%if(isLoggedIn){%>
+                <form action="/logout" method="POST" style="width: 100%;">
+                    <button type="submit" class="btn btn-logout w-100 mt-4">Logout</button>
+                </form>
+            <%}else{%>
+                <a href="/login" class="btn btn-logout w-100 mt-4">Login</a>
+                <%}%>
+        </div>
+    </nav>
+
+    <!-- Placed Orders Menu (Orders to Manufacturers) -->
+    <% if (isLoggedIn) { %>
+    <div id="placedOrdersMenu">
+        <div class="container text-center">
+            <h2>Placed Bulk Orders (To Manufacturers)</h2>
+            <table class="table table-hover table-striped">
+                <thead>
+                    <tr class="table-dark">
+                        <th>Order Number</th>
+                        <th>Manufacturer</th>
+                        <th>Drug</th>
+                        <th>Quantity</th>
+                        <th>Status</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Orders will be dynamically inserted here -->
+                </tbody>
+            </table>
+            <button type="button" class="btn btn-sm" data-bs-toggle="modal" id="placeorderbtn" data-bs-target="#placeordermodal">
+                <i class="bi bi-plus-circle-fill"></i> Place Order
+            </button>
+        </div>
+    </div>
+
+    <!-- Modal for placing order -->
+    <div class="modal fade" id="placeordermodal" tabindex="-1" aria-labelledby="placeordermodalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="placeordermodalLabel">Place Order</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <div class="mb-3">
+                            <label for="manufacturer-name" class="col-form-label">Manufacturer Name</label>
+                            <input type="text" class="form-control" id="manufacturer-name" placeholder="Enter manufacturer name..." name="ManufacturerName">
+                        </div>
+                        <div class="mb-3">
+                            <label for="order-drug-name" class="col-form-label">Drug Name</label>
+                            <input type="text" class="form-control" id="order-drug-name" placeholder="Enter drug name..." name="OrderDrugName">
+                        </div>
+                        <div class="mb-3">
+                            <label for="order-category-name" class="col-form-label">Category Name</label>
+                            <input type="text" class="form-control" id="order-category-name" placeholder="Enter category name..." name="OrderDrugCategory">
+                        </div>
+                        <div class="mb-3">
+                            <label for="order-drug-quantity" class="col-form-label">Quantity</label>
+                            <input type="number" class="form-control" id="order-drug-quantity" placeholder="Enter quantity..." name="OrderDrugQuantity">
+                        </div>
+                        <div class="modal-footer">
+                            <button type="submit" class="btn btn-primary">Place Order</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Add drug details section -->
+    <div id="addDetailsMenu" style="display: none;">
+        <div class="container text-center">
+            <h2>Add Details</h2>
+            <table class="table table-hover table-striped" id="drugTable">
+                <thead>
+                    <tr class="table-dark">
+                        <th>ID</th>
+                        <th>Batch Number</th>
+                        <th>Drug Name</th>
+                        <th>Category Name</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Table contents-->
+                </tbody>
+            </table>
+            <button type="button" class="btn btn-sm" data-bs-toggle="modal" id="addDrugbtn" data-bs-target="#addModal">
+                <i class="bi bi-plus-circle-fill"></i> Add Drug
+            </button>
+            <button type="button" class="btn btn-sm" data-bs-toggle="modal" id="addCategorybtn" data-bs-target="#addCategoryModal">
+                <i class="bi bi-plus-circle-fill"></i> Add Category
+            </button>
+        </div>
+    </div>
+
+    <!-- Modal for adding a new drug -->
+    <!-- Modal for adding new drug -->
+<div class="modal fade" id="addNewDrugModal" tabindex="-1" aria-labelledby="addNewDrugModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="addNewDrugModalLabel">New Drug Details</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form> <!-- Removed method and action attributes -->
+                    <div class="mb-3">
+                        <label for="new-drug-name" class="col-form-label">Drug Name</label>
+                        <input type="text" class="form-control" id="new-drug-name" placeholder="Enter drug name..."
+                            name="DrugName" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="new-batch-number" class="col-form-label">Batch Number</label>
+                        <input type="text" class="form-control" id="new-batch-number"
+                            placeholder="Enter batch number..." name="BatchNumber" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="new-drug-price" class="col-form-label">Price</label>
+                        <input type="number" class="form-control" id="new-drug-price"
+                            placeholder="Enter drug price..." name="Price" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="new-drug-category" class="col-form-label">Category</label>
+                        <select class="form-control" id="new-drug-category" name="Category" required>
+                            <option value="" disabled selected>Select drug category...</option>
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label for="new-manufacturing-date" class="col-form-label">Manufacturing Date</label>
+                        <input type="date" class="form-control" id="new-manufacturing-date" name="ManufacturingDate"
+                            required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="new-expiry-date" class="col-form-label">Expiry Date</label>
+                        <input type="date" class="form-control" id="new-expiry-date" name="ExpiryDate" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="new-drug-image" class="col-form-label">Drug Image</label>
+                        <input type="file" class="form-control" id="new-drug-image" name="DrugImage"
+                            accept="image/*">
+                    </div>
+                    <div class="mb-3">
+                        <label for="new-drug-description" class="col-form-label">Description</label>
+                        <textarea class="form-control" id="new-drug-description"
+                            placeholder="Enter drug description here..." name="Description"></textarea>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-primary">Add Drug</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+    <!-- Modal for adding new Category -->
+<div class="modal fade" id="addCategoryModal" tabindex="-1" aria-labelledby="addCategoryModalLabel"
+aria-hidden="true">
+<div class="modal-dialog">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title" id="addCategoryModalLabel">New Category Details</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+            <form> 
+                <div class="mb-3">
+                    <label for="new-category-name" class="col-form-label">Category Name</label>
+                    <input type="text" class="form-control" id="new-category-name" placeholder="Enter category name..."
+                        name="CategoryName" required>
+                </div>
+                <div class="mb-3">
+                    <label for="new-category-description" class="col-form-label">Description</label>
+                    <textarea class="form-control" id="new-category-description"
+                        placeholder="Enter category description here..." name="CategoryDescription"></textarea>
+                </div>
+                <div class="mb-3">
+                    <label for="new-category-image" class="col-form-label">Drug Image</label>
+                    <input type="file" class="form-control" id="new-category-image" name="CategoryImage"
+                        accept="image/*">
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-primary">Add Category</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+</div>
+
+    <!-- Modal for adding existing drug -->
+    <div class="modal fade" id="addExistingDrugModal" tabindex="-1" aria-labelledby="addExistingDrugModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="addExistingDrugModalLabel">Add Existing Drug</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="addExistingDrugForm"> <!-- Updated to include ID -->
+                        <div class="mb-3">
+                            <label for="existing-batch-number" class="col-form-label">Batch Number</label>
+                            <input type="text" class="form-control" id="existing-batch-number"
+                                placeholder="Enter batch number..." name="BatchNumber" required>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="submit" class="btn btn-primary">Add Drug</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal for adding new drug -->
+    <!-- Modal for adding a new drug -->
+<div class="modal fade" id="addModal" tabindex="-1" aria-labelledby="addModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="addModalLabel">Choose to Add</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body text-center">
+                <button type="button" class="btn btn-sm" data-bs-toggle="modal" data-bs-target="#addNewDrugModal"
+                    style="margin-right: 35%;">
+                    Add New Drug
+                </button>
+                <button type="button" class="btn btn-sm" data-bs-toggle="modal"
+                    data-bs-target="#addExistingDrugModal">
+                    Add Existing Drug
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Orders Menu (Customer Orders) -->
+<div id="ordersMenu" style="display: none;">
+    <div class="container text-center">
+        <h2>Customer Orders</h2>
+        <table class="table table-hover table-striped">
+            <thead>
+                <tr class="table-dark">
+                    <th>Order ID</th>
+                    <th>Customer ID</th>
+                    <th>Quantity</th>
+                    <th>Ordered Date</th>
+                    <th>Delivery Date</th>
+                    <th>Ship Status</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Sample row, replace with actual data -->
+                <tr>
+                    <td>ID1</td>
+                    <td>CID1</td>
+                    <td>2</td>
+                    <td>12/11/2024</td>
+                    <td>12/11/2024</td>
+                    <td><span class="badge bg-warning">Processing</span></td>
+                    <td>
+                        <button type="button" class="btn btn-sm btn-success" id="shipped">Mark as Shipped</button>
+                    </td>
+                </tr>
+                <tr>
+                    <td>ID2</td>
+                    <td>CID1</td>
+                    <td>2</td>
+                    <td>12/11/2024</td>
+                    <td>12/11/2024</td>
+                    <td><span class="badge bg-success">Shipped</span></td>
+                    <td>
+                        <button type="button" class="btn btn-sm btn-success" id="shipped">Mark as Shipped</button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+    <!-- Verify Prescription Menu -->
+    <div id="verifyPrescriptionMenu" style="display: none;">
+        <div class="container text-center">
+            <h2>Verify Prescription</h2>
+            <table class="table table-hover table-striped" id="verificationTable">
+                <thead>
+                    <tr class="table-dark">
+                        <th>Verification ID</th>
+                        <th>Customer ID</th>
+                        <th>Prescription</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody id="verificationTableBody">
+                    <!-- Prescriptions will be dynamically added here -->
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- Modal for viewing PDF prescription in full screen -->
+    <div class="modal fade" id="viewPDFModal" tabindex="-1" aria-labelledby="viewPDFModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="viewPDFModalLabel">Prescription PDF Preview</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <iframe id="modalPDF" src="" frameborder="0" style="width:100%; height:500px;"></iframe>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal for adding a delivery date -->
+    <div class="modal fade" id="deliveryDateModal" tabindex="-1" aria-labelledby="deliveryDateLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="deliveryDateLabel">Set Delivery Date</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="deliveryDateForm">
+                        <div class="mb-3">
+                            <label for="delivery-date" class="col-form-label">Delivery Date</label>
+                            <input type="date" class="form-control" id="delivery-date" required>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="submit" class="btn btn-primary">Accept</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <%}%>
+
+    <script>
+        const addDetails = document.getElementById('addDetails');
+        const placedOrders = document.getElementById('placedOrders');
+        const orders = document.getElementById('orders');
+        const verifyPrescription = document.getElementById('verifyPrescription');
+
+        const addDetailsMenu = document.getElementById('addDetailsMenu');
+        const verifyPrescriptionMenu = document.getElementById('verifyPrescriptionMenu');
+        const placedOrdersMenu = document.getElementById('placedOrdersMenu');
+        const ordersMenu = document.getElementById('ordersMenu');
+
+        addDetails.addEventListener('click', () => showPage(addDetailsMenu));
+        verifyPrescription.addEventListener('click', () => showPage(verifyPrescriptionMenu));
+        placedOrders.addEventListener('click', () => showPage(placedOrdersMenu));
+        orders.addEventListener('click', () => showPage(ordersMenu));
+
+        function showPage(pageContent) {
+            placedOrdersMenu.style.display = 'none';
+            addDetailsMenu.style.display = 'none';
+            ordersMenu.style.display = 'none';
+            verifyPrescriptionMenu.style.display = 'none';
+            pageContent.style.display = 'block';
+        }
+    </script>
+</body>
+
+</html>

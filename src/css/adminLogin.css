@@ -1,6 +1,6 @@
 body {
     font-family: 'Poppins', sans-serif;
-    background: linear-gradient(135deg, #E8F0FA 0%, #A7C1E1 100%);
+    background: linear-gradient(120deg, #e8f0fa, #84a1c4, #607b9b);
     display: flex;
     align-items: center;
     height: 100vh;
@@ -98,7 +98,7 @@ body {
     padding: 15px;
     border: none;
     border-radius: 50px;
-    background: linear-gradient(135deg, #8DBBE5 0%, #15628F 100%);
+    background: linear-gradient(120deg, #a4bcd9fb, #749ed2);
     color: #fff;
     font-size: 18px;
     font-weight: 600;
@@ -107,6 +107,7 @@ body {
 }
 
 .btn:hover {
+    background: linear-gradient(120deg, #84a1c4,#a4bcd9fb);
     transform: translateY(-3px);
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
 }

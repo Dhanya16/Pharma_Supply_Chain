@@ -1,0 +1,471 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HealWings</title>
+    <link rel="icon" href="images/favicon.ico" type="image/x-icon">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <link rel="stylesheet" type="text/css"
+        href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.css" />
+    <link rel="stylesheet" type="text/css"
+        href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick-theme.min.css" />
+    <style>
+        html, body {
+            height: 100%;
+            margin: 0;
+        }
+        body {
+            display: flex;
+            flex-direction: column;
+            font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+            background: linear-gradient(145deg, #a7c1e1, #e8f0fa);
+            background-repeat: no-repeat;
+    background-attachment: fixed;
+            /* Gradient for the page background */
+            margin: 0;
+            padding: 0;
+            padding-top: 80px;
+            color: #2c3e50;
+            /* Text color */
+        }
+        .content {
+            flex: 1;
+            /* Adjusts space under the header */
+        }
+
+        .header {
+            background: linear-gradient(to right, rgba(206, 224, 244, 0.8), rgba(167, 193, 225, 0.8));
+            color: black;
+            backdrop-filter: blur(5px);
+            -webkit-backdrop-filter: blur(5px);
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+        }
+
+        .header .navbar-brand,
+        .header .nav-link {
+            color: black !important;
+        }
+
+        .header .navbar-brand img {
+            height: 40px;
+            width: 40px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-right: 10px;
+        }
+
+        .navbar-nav {
+            flex-grow: 1;
+            justify-content: center;
+        }
+
+        .header .nav-item {
+            margin-right: 15px;
+        }
+
+        .header .nav-item:last-child {
+            margin-right: 0;
+        }
+
+        .footer {
+            background-color: #343a40;
+            color: white;
+            text-align: center;
+            padding: 20px 0;
+            bottom: 0;
+            width: 100%;
+        }
+
+        .cart-btn {
+            margin-top: 2px;
+            margin-left: 10px;
+            background: rgb(96,123,155);
+            color:white;
+        }
+
+        .cart-section {
+            display: flex;
+            align-items: center;
+        }
+
+        @media (max-width: 767px) {
+            .cart-section {
+                flex-direction: column;
+                align-items: flex-end;
+                margin-top: 10px;
+            }
+
+            .cart-btn {
+                margin-top: 10px;
+            }
+        }
+
+        .user-icon-circle {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 40px;
+            height: 40px;
+            border: 2px solid #42251D;
+            border-radius: 50%;
+            background-color: white;
+            margin-left: 10px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .user-icon-circle i {
+            color: #42251D;
+            font-size: 18px;
+        }
+
+        a:hover {
+            text-decoration: none;
+        }
+
+
+        /* Table Styles */
+        .cart-table {
+            width: 100%;
+            /* Full-width table */
+            border-collapse: collapse;
+            margin-bottom: 20px;
+            background-color: #cee0f4;
+            /* Base table background */
+        }
+
+        .cart-table th,
+        .cart-table td {
+            padding: 12px 15px;
+            text-align: left;
+            border-bottom: 1px solid #a5bbdb;
+            /* Borders between rows */
+        }
+
+        .cart-table th {
+            background-color: #84a1c4;
+            /* Header color */
+            color: white;
+            font-weight: bold;
+        }
+
+        /* Alternate row colors */
+        .cart-table tbody tr:nth-child(odd) {
+            background-color: #e0ebf8;
+            /* Lighter blue for odd rows */
+        }
+
+        .cart-table tbody tr:nth-child(even) {
+            background-color: #d4e4f3;
+            /* Slightly darker blue for even rows */
+        }
+
+        .total-row {
+            background-color: transparent;
+            /* Keep the row background consistent */
+            color: black;
+            /* Set text to black */
+            font-weight: bold;
+            /* Highlight the total */
+        }
+
+        .total-row td {
+            text-align: right;
+            /* Align the text to the right for consistency */
+            padding: 12px 15px;
+            /* Standard padding */
+        }
+
+        .buttons {
+            display: flex;
+            justify-content: center;
+            /* Center buttons */
+            gap: 20px;
+            margin-bottom: 20px;
+            /* Adjust the gap and margin as needed */
+        }
+
+        .place-order,
+        .clear-cart {
+            padding: 10px 20px;
+            font-size: 1em;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .place-order {
+            background-color: #84a1c4;
+            /* Green color */
+            color: white;
+        }
+
+        .place-order:hover {
+            background-color: #6c8fb5;
+            /* Darker green on hover */
+        }
+
+        .clear-cart {
+            background-color: #84a1c4;
+            /* Red color */
+            color: white;
+        }
+
+        .clear-cart:hover {
+            background-color: #6c8fb5;
+            /* Darker red on hover */
+        }
+
+        .prescription-upload {
+            margin-top: 20px;
+            text-align: center;
+            /* Align label and input properly */
+            margin-bottom: 20px;
+        }
+
+        .prescription-upload label {
+            font-size: 1.1em;
+            color: #2c3e50;
+            display: block;
+            margin-bottom: 8px;
+            margin: 0 auto;
+        }
+
+        #prescriptionUpload {
+            padding: 10px;
+            margin-bottom: 8px;
+            font-size: 1em;
+            border: 2px solid #84a1c4;
+            /* Matches the color palette */
+            border-radius: 5px;
+            background-color: #e0ebf8;
+            width: 100%;
+            /* Full width for a clean look */
+            max-width: 500px;
+            /* Limit the width of the input field */
+        }
+    </style>
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-lg navbar-light header">
+        <div class="container">
+            <a class="navbar-brand" href="#">
+                <img src="/images/logo.png" alt="Logo">
+                HealWings
+            </a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown"
+                aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNavDropdown">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/categories">Categories</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/orders">Orders</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/reviews">Reviews</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/aboutus">About us</a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button"
+                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            More
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                            <a class="dropdown-item" href="/contact">Contact Us</a>
+                            <a class="dropdown-item" href="/help">Help</a>
+                        </div>
+                    </li>
+                </ul>
+                <div class="ml-3 cart-section">
+                    <a href="/cart" class="btn cart-btn">My Cart</a>
+                    <form action="/logout" method="POST" class="d-inline">
+                        <button type="submit" class="btn cart-btn">Logout</button>
+                    </form>
+                    <a href="/profile" class="user-icon-link">
+                        <div class="user-icon-circle">
+                            <i class="fas fa-user"></i>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </nav>
+    <div class="container content">
+        <h1>Cart</h1>
+        <table class="cart-table">
+            <thead>
+                <tr>
+                    <th>Item Name</th>
+                    <th>Description</th>
+                    <th>Price</th>
+                    <th>Quantity</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% if (cartItems.length===0) { %>
+                    <tr>
+                        <td colspan="4" class="text-center">Your cart is empty!</td>
+                    </tr>
+                    <% } else { %>
+                        <% cartItems.forEach(item=> { %>
+                            <tr>
+                                <td>
+                                    <%= item.item_name %>
+                                </td>
+                                <td>
+                                    <%= item.description %>
+                                </td>
+                                <td>₹<%= (Number(item.price) || 0).toFixed(2) %>
+                                </td>
+                                <td>
+                                    <%= item.quantity %>
+                                </td>
+                            </tr>
+                            <% }) %>
+                                <% } %>
+                                    <% if (cartItems.length> 0) { %>
+                                        <tr class="total-row">
+                                            <td colspan="2"></td> <!-- Skips the first two columns -->
+                                            <td>Total Amount:</td> <!-- Total amount label under the price column -->
+                                            <td>₹<%= (Number(totalAmount) || 0).toFixed(2) %>
+                                            </td> <!-- The total value under the quantity column -->
+                                        </tr>
+                                        <% } %>
+            </tbody>
+        </table>
+
+        <% if (cartItems.length> 0) { %>
+            <form class="prescription-upload" action="/place-order" method="POST" enctype="multipart/form-data">
+                <label for="prescriptionUpload">Upload Prescription (PDF):</label>
+                <input type="file" id="prescriptionUpload" name="prescriptionUpload" accept=".pdf" required>
+                <!-- Address Selection -->
+<div class="address-selection mt-3">
+    <label>Select Address:</label><br>
+    <div>
+        <input type="radio" id="savedAddress" name="addressOption" value="saved" checked>
+        <label for="savedAddress">Use Saved Address</label>
+    </div>
+    <div>
+        <input type="radio" id="newAddress" name="addressOption" value="new">
+        <label for="newAddress">Enter New Address</label>
+    </div>
+</div>
+
+<!-- New Address Input Fields -->
+<div id="newAddressFields" class="mt-3" style="display:none;">
+    <div class="form-group">
+        <label for="address">Address:</label>
+        <input type="text" id="address" name="address" class="form-control">
+    </div>
+    <div class="form-group">
+        <label for="city">City:</label>
+        <input type="text" id="city" name="city" class="form-control">
+    </div>
+    <div class="form-group">
+        <label for="pincode">Pincode:</label>
+        <input type="text" id="pincode" name="pincode" class="form-control">
+    </div>
+</div>
+
+                <div class="buttons">
+                    <button type="submit" id="placeOrderBtn" class="place-order">Place Order</button>
+                    <form action="/clear-cart" method="POST" class="clear-cart">
+                        <button type="submit" class="clear-cart">Clear Cart</button>
+                    </form>
+                </div>
+            </form>
+            <% } %>
+    </div>
+    <div class="footer">
+        <p>&copy; 2024 HealWings. All rights reserved.</p>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script>
+        // Show/hide address fields based on selection
+const addressOptions = document.querySelectorAll('input[name="addressOption"]');
+const newAddressFields = document.getElementById('newAddressFields');
+const addressInput = document.getElementById('address');
+const cityInput = document.getElementById('city');
+const pincodeInput = document.getElementById('pincode');
+
+// Initialize event listeners for address options
+addressOptions.forEach(option => {
+    option.addEventListener('change', function() {
+        if (this.value === 'new') {
+            newAddressFields.style.display = 'block'; // Show new address fields
+            // Make fields required
+            addressInput.setAttribute('required', '');
+            cityInput.setAttribute('required', '');
+            pincodeInput.setAttribute('required', '');
+        } else {
+            newAddressFields.style.display = 'none'; // Hide new address fields
+            // Remove required attribute
+            addressInput.removeAttribute('required');
+            cityInput.removeAttribute('required');
+            pincodeInput.removeAttribute('required');
+        }
+    });
+});
+
+// Enable the Place Order button when a valid PDF is uploaded
+document.getElementById('prescriptionUpload').addEventListener('change', function() {
+    const file = this.files[0];
+    const placeOrderBtn = document.getElementById('placeOrderBtn');
+
+    // Check if a file is selected and if it's a PDF
+    if (file && file.type === 'application/pdf') {
+        placeOrderBtn.disabled = false; // Enable button
+    } else {
+        placeOrderBtn.disabled = true; // Disable button
+        if (file) {
+            alert('Please upload a valid PDF file.'); // Alert for invalid file
+        }
+    }
+});
+
+// Prevent form submission if the button is disabled or required fields are empty
+document.querySelector('form').addEventListener('submit', function (e) {
+    const placeOrderBtn = document.getElementById('placeOrderBtn');
+
+    // Check if the button is disabled or if new address fields are visible and required but not filled
+    if (placeOrderBtn.disabled || 
+        (newAddressFields.style.display === 'block' && (
+            !addressInput.value || 
+            !cityInput.value || 
+            !pincodeInput.value
+        ))) {
+        e.preventDefault(); // Prevent form submission if button is disabled or required fields are empty
+        alert('Please upload a valid PDF file and fill in all required fields before placing an order.');
+        console.log('Form submission prevented: Button is disabled or required fields are empty.'); // Debugging statement
+    } else {
+        console.log('Form submitted with valid file.'); // Debugging statement
+    }
+});
+
+
+
+    </script>
+</body>
+
+</html>

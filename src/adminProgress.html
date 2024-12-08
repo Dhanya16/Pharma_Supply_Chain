@@ -5,8 +5,10 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Order Status</title>
+    <title>HealWings Admin</title>
+    <link rel="icon" href="images/favicon.ico" type="image/x-icon">
     <link rel="stylesheet" href="css/adminProgress.css">
+    <script src="https://cdn.jsdelivr.net/gh/ethereum/web3.js@1.0.0-beta.36/dist/web3.min.js"></script>
 
 
     <!-- UniIcon CDN Link  -->
@@ -14,13 +16,19 @@
 </head>
 
 <body>
+    <header class="fixed-top">
+        <div class="container">
+            <a href="manageDrug.html">
+                <button type="button" class="btn btn-secondary">Back</button>
+            </a>
+        </div>
+    </header>
     <div class="main">
 
         <div class="head">
             <p class="head_1">Order Progress Status</p>
         </div>
         <ul>
-        
             <li id="card">
                 <i class="icon uil uil-flask"></i>
                 <div class="progress one">
@@ -47,11 +55,11 @@
                 </div>
                 <p class="text">Initial Quality Control</p>
                 <div class="card_details">
-                    <p>Test ID: <span>QC-3456</span></p>
-                    <p>Test Date: <span>2024-07-09</span></p>
-                    <p>Test Time: <span>9:00 AM</span></p>
-                    <p>Tester Name: <span>Dr. John Doe</span></p>
-                    <p>Results: <span>Passed</span></p>
+                    <p>Test ID: <span id="qcTestId"></span></p>
+                    <p>Test Date: <span id="qcTestDate"></span></p>
+                    <p>Test Time: <span id="qcTestTime"></span></p>
+                    <p>Tester Name: <span id="qcTesterName"></span></p>
+                    <p>Results: <span id="qcResult"></span></p>
                 </div>
             </li>
             <li id="card">
@@ -62,11 +70,11 @@
                 </div>
                 <p class="text">Packaged Drugs</p>
                 <div class="card_details">
-                    <p>Package Batch Number: <span>PK-2345</span></p>
-                    <p>Package Date: <span>2024-07-08</span></p>
-                    <p>Package Time: <span>3:00 PM</span></p>
-                    <p>Quantity Packaged: <span>9500 units</span></p>
-                    <p>Packaging Facility: <span>PackTech Ltd.</span></p>
+                    <p>Package Number: <span id="PackageNumber"></span></p>
+                    <p>Package Date: <span id="PackageDate"></span></p>
+                    <p>Package Time: <span id="PackageTime"></span></p>
+                    <p>Quantity Packaged: <span id="QuantityPackaged"></span></p>
+                    <p>Packaging Facility: <span id="PackagingFacility"></span></p>
                 </div>
             </li>
             <li id="card">
@@ -77,12 +85,12 @@
                 </div>
                 <p class="text">Lab Testing</p>
                 <div class="card_details">
-                    <p>Lab Test ID: <span>LT-5678</span></p>
-                    <p>Test Date: <span>2024-07-07</span></p>
-                    <p>Test Time: <span>4:00 PM</span></p>
-                    <p>Lab Name: <span>TestLab Inc.</span></p>
-                    <p>Tester Name: <span>Dr. Jane Smith</span></p>
-                    <p>Results: <span>Passed</span></p>
+                    <p>Lab Test ID: <span id="labTestId"></span></p>
+                    <p>Test Date: <span id="labTestDate"></span></p>
+                    <p>Test Time: <span id="labTestTime"></span></p>
+                    <p>Lab Name: <span id="labName"></span></p>
+                    <p>Tester Name: <span id="labTesterName"></span></p>
+                    <p>Results: <span id="labResults"></span></p>
                 </div>
             </li>
             <li id="card">
@@ -93,13 +101,11 @@
                 </div>
                 <p class="text">Sent to Distributors</p>
                 <div class="card_details">
-                    <p>Distribution Batch Number: <span>DB-3456</span></p>
-                    <p>Distributor Name: <span>Distributor Co.</span></p>
-                    <p>Dispatch Date: <span>2024-07-06</span></p>
-                    <p>Dispatch Time: <span>1:00 PM</span></p>
-                    <p>Quantity Dispatched: <span>9000 units</span></p>
-                    <p>Destination: <span>Main Warehouse</span></p>
-                    <p>Mode Of Transport: <span>Truck</span></p>
+                    <p>Distribution Batch Number: <span id="distributionBatchNumber"></span></p>
+                    <p>Distributor Name: <span id="distributorName"></span></p>
+                    <p>Dispatch Date: <span id="dispatchDate"></span></p>
+                    <p>Dispatch Time: <span id="dispatchTime"></span></p>
+                    <p>Quantity Dispatched: <span id="quantityDispatched"></span></p>
                 </div>
             </li>
             <li id="card">
@@ -108,12 +114,13 @@
                     <p>6</p>
                     <i class="uil uil-check"></i>
                 </div>
-                <p class="text">Transportation to Warehouse</p>
+                <p class="text">Logistics Provider</p>
                 <div class="card_details">
-                    <p>Transport ID: <span>TR-1234</span></p>
-                    <p>Transport Date: <span>2024-07-05</span></p>
-                    <p>Transport Time: <span>10:00 AM</span></p>
-                    <p>Transport Company: <span>TransLogistics</span></p>
+                    <p>Logistics Provider: <span id="logisticsProvider"></span></p>
+                    <p>Pickup Date: <span id="pickupDate"></span></p>
+                    <p>Pickup Time: <span id="pickupTime"></span></p>
+                    <p>Delivery Date: <span id="deliveryDate"></span></p>
+                    <p>Delivery Time: <span id="deliveryTime"></span></p>
                 </div>
             </li>
             <li id="card">
@@ -124,12 +131,12 @@
                 </div>
                 <p class="text">Warehouse Storage</p>
                 <div class="card_details">
-                    <p>Storage Batch Number: <span>WS-6789</span></p>
-                    <p>Arrival Date: <span>2024-07-04</span></p>
-                    <p>Arrival Time: <span>2:00 PM</span></p>
-                    <p>Warehouse Name: <span>Main Warehouse</span></p>
-                    <p>Storage Location within warehouse: <span>Section A</span></p>
-                    <p>Storage Conditions: <span>Controlled Temp</span></p>
+                    <p>Warehouse Number: <span id="warehouseNumber"></span></p>
+                    <p>Arrival Date: <span id="arrivalDate"></span></p>
+                    <p>Arrival Time: <span id="arrivalTime"></span></p>
+                    <p>Warehouse Name: <span id="warehouseName"></span></p>
+                    <p>Storage Location within warehouse: <span id="storageLocation"></span></p>
+                    <p>Storage Conditions: <span id="storageConditions"></span></p>
                 </div>
             </li>
             <li id="card">
@@ -140,14 +147,18 @@
                 </div>
                 <p class="text">Sent to Pharmacy</p>
                 <div class="card_details">
-                    <p>Dispatch Batch Number: <span>DP-4567</span></p>
-                    <p>Dispatch Date: <span>2024-07-03</span></p>
-                    <p>Dispatch Time: <span>11:00 AM</span></p>
-                    <p>Pharmacy Name: <span>HealthPharma</span></p>
-                    <p>Quantity Dispatched: <span>8500 units</span></p>
+                    <p>Pharmacy Name: <span id="pharmacyName"></span></p>
+                    <p>Drug Name: <span id="drugName"></span></p>
+                    <p>Category Name: <span id="categoryName"></span></p>
+                    <p>Drug Description: <span id="drugDescription"></span></p>
+                    <p>Manufactured Date: <span id="manufactureDate"></span></p>
+                    <p>Expiry Date: <span id="expiryDate"></span></p>
                 </div>
             </li>
         </ul>
+        <div id="failureMessage" style="display:none; color:red;">
+            <p><i class="uil uil-exclamation-triangle"></i> Test Failed. The process cannot proceed further.</p>
+        </div>
     </div>
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
